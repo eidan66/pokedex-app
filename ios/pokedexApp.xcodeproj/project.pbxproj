@@ -15,6 +15,9 @@
 		7699B88040F8A987B510C191 /* libPods-pokedexApp-pokedexAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-pokedexApp-pokedexAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		EB2C2B12A4C55DB257AACA3B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 39EA2FE32E098A7E8E55C7C3 /* PrivacyInfo.xcprivacy */; };
+		A25AE689DC754C4CA904705E /* Pokemon-Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73F5AAB0FA3549048BB5F754 /* Pokemon-Solid.ttf */; };
+		2F9776687721423CA7C0CC9E /* Pokemon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3C34FDC83484BE88BB834C6 /* Pokemon.ttf */; };
+		29AECC19670C48708C265CE9 /* Genera-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 904D141E0FDA449296C0FDFE /* Genera-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +42,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = pokedexApp/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = pokedexApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-pokedexApp-pokedexAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pokedexApp-pokedexAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		39EA2FE32E098A7E8E55C7C3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = pokedexApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		39EA2FE32E098A7E8E55C7C3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = pokedexApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-pokedexApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pokedexApp.debug.xcconfig"; path = "Target Support Files/Pods-pokedexApp/Pods-pokedexApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-pokedexApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pokedexApp.release.xcconfig"; path = "Target Support Files/Pods-pokedexApp/Pods-pokedexApp.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-pokedexApp-pokedexAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pokedexApp-pokedexAppTests.debug.xcconfig"; path = "Target Support Files/Pods-pokedexApp-pokedexAppTests/Pods-pokedexApp-pokedexAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = pokedexApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-pokedexApp-pokedexAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pokedexApp-pokedexAppTests.release.xcconfig"; path = "Target Support Files/Pods-pokedexApp-pokedexAppTests/Pods-pokedexApp-pokedexAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		73F5AAB0FA3549048BB5F754 /* Pokemon-Solid.ttf */ = {isa = PBXFileReference; name = "Pokemon-Solid.ttf"; path = "../assets/fonts/Pokemon-Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B3C34FDC83484BE88BB834C6 /* Pokemon.ttf */ = {isa = PBXFileReference; name = "Pokemon.ttf"; path = "../assets/fonts/Pokemon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		904D141E0FDA449296C0FDFE /* Genera-SemiBold.ttf */ = {isa = PBXFileReference; name = "Genera-SemiBold.ttf"; path = "../assets/fonts/Genera-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				F4E5015557E74795962A0371 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -151,6 +158,16 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-pokedexApp-pokedexAppTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F4E5015557E74795962A0371 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				73F5AAB0FA3549048BB5F754 /* Pokemon-Solid.ttf */,
+				B3C34FDC83484BE88BB834C6 /* Pokemon.ttf */,
+				904D141E0FDA449296C0FDFE /* Genera-SemiBold.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,7 +221,8 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -249,6 +267,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				EB2C2B12A4C55DB257AACA3B /* PrivacyInfo.xcprivacy in Resources */,
+				A25AE689DC754C4CA904705E /* Pokemon-Solid.ttf in Resources */,
+				2F9776687721423CA7C0CC9E /* Pokemon.ttf in Resources */,
+				29AECC19670C48708C265CE9 /* Genera-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +493,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q8A9DU8HAW;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = pokedexApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -499,6 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q8A9DU8HAW;
 				INFOPLIST_FILE = pokedexApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -521,6 +544,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -552,6 +576,7 @@
 				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -590,10 +615,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -604,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -635,6 +658,7 @@
 				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -665,10 +689,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

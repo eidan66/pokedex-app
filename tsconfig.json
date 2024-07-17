@@ -9,10 +9,11 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "types": ["node"],
+    "types": ["jest", "node"],
     "jsx": "react-native",
     "lib": ["ES6", "ES2017"],
     "target": "ES5"
   },
+  "include": ["./src/**/*", "./declarations/*.d.ts", "./src/**/*.test.*"],
   "exclude": ["./dist", "./node_modules"]
 }
