@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Genera-SemiBold.ttf",
+      "sha1": "b07c6a73c4eca82f33f04251313353b28fd05fbc"
+    },
+    {
+      "path": "assets/fonts/Pokemon-Solid.ttf",
+      "sha1": "604b78675e244487f0efd80662ac5b899353b80e"
+    },
+    {
+      "path": "assets/fonts/Pokemon.ttf",
+      "sha1": "0d9951d3380b31319e2de9546dfd96a399b56f71"
+    }
+  ]
+}
