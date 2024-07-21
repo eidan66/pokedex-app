@@ -15,11 +15,8 @@ jobs:
   install_dependencies:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: '20'
 
@@ -34,7 +31,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
   run_tests:
     runs-on: ubuntu-latest
