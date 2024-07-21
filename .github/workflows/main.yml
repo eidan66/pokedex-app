@@ -1,18 +1,22 @@
+permissions:
+  contents: read
+
 name: Unit Tests
 
 on:
   push:
     branches:
-      - main  # This will run only on the main branch
+      - main
   pull_request:
     branches:
-      - main  # This will run only on pull requests targeting the main branch
+      - main
 
 jobs:
   Jest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Install Watchman
         run: sudo apt-get install -y watchman
 
