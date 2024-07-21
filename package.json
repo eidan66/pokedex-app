@@ -76,6 +76,7 @@
     "react-test-renderer": "18.2.0",
     "storybook": "^8.1.10",
     "ts-jest": "^29.2.2",
+    "ts-node": "^10.9.2",
     "typescript": "5.0.4"
   },
   "packageManager": "yarn@3.6.4"

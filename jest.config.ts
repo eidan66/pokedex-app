@@ -1,3 +1,5 @@
+import type { Config } from 'jest';
+
 module.exports = {
   preset: 'react-native',
   transform: {
@@ -9,4 +11,8 @@ module.exports = {
     '\\.svg': '<rootDir>/__tests__/__mocks__/svg.js',
   },
   testPathIgnorePatterns: ['<rootDir>/__tests__/__mocks__/svg.js'],
-};
+  verbose: true,
+  collectCoverage: true,
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  coverageDirectory: 'coverage',
+} as Config;
