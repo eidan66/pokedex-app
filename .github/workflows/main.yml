@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Node.js CI Workflow
 
 on:
   push:
@@ -8,14 +8,21 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
-  dependencies:
+  install_dependencies:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
+
       - name: Cache Node Modules
         uses: actions/cache@v3
         with:
@@ -27,35 +34,27 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn install
 
-      - name: Install Watchman
-        run: sudo apt-get install -y watchman
-
-      - name: Save Cache
-        id: save-cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
-
-  Jest:
+  run_tests:
     runs-on: ubuntu-latest
-    needs: dependencies
+    needs: install_dependencies
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
 
       - name: Restore Node Modules Cache
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: ${{ needs.dependencies.outputs.cache-hit }}
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Run Tests
-        run: yarn test
+        run: yarn jest
