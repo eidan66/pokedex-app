@@ -14,9 +14,6 @@ interface CardProps {
 export const Card: FunctionComponent<CardProps> = ({ background, title, style }) => {
   return (
     <View style={[styles.container, { backgroundColor: background }, style]} testID="card-container">
-      <View style={styles.pokeballTopLeft}>
-        <PokeballSvg width={70} height={70} fill={`${COLORS.white}${COLORS['0.4']}`} testID="pokeball-svg" />
-      </View>
       <Text style={styles.text}>{title}</Text>
       <View style={styles.pokeball}>
         <PokeballSvg width={70} height={70} fill={`${COLORS.white}${COLORS['0.4']}`} testID="pokeball-svg" />

@@ -10,7 +10,7 @@ describe('Card', () => {
     const { getByText, getAllByTestId } = render(<Card background={COLORS.grass} title="Pokédex" />);
 
     expect(getByText('Pokédex')).toBeTruthy();
-    expect(getAllByTestId('pokeball-svg').length).toBe(2);
+    expect(getAllByTestId('pokeball-svg').length).toBe(1);
   });
 
   it('should apply custom styles correctly', () => {
