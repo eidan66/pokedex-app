@@ -3,17 +3,21 @@ name: Unit Tests
 on:
   push:
     branches:
-      - main
+      - main  # This will run only on the main branch
   pull_request:
     branches:
-      - main
+      - main  # This will run only on pull requests targeting the main branch
 
 jobs:
   Jest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install Watchman
+        run: sudo apt-get install -y watchman
+
+      - name: Install Dependencies
+        run: yarn
+
       - name: Run Tests
-        run: |
-          yarn
-          yarn test
+        run: yarn test
