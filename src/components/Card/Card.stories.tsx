@@ -2,6 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Card } from './Card';
+import { COLORS } from '../../constants/colors';
 
 const meta = {
   title: 'components/Card',
@@ -14,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    background: 'blue',
-    title: 'Pokedex',
+    background: COLORS.grass,
+    title: 'Pokédex',
   },
 };
