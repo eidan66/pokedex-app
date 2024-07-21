@@ -4,6 +4,8 @@ import { SafeAreaView, StyleSheet, FlatList, View } from 'react-native';
 import { Box } from './src/components/Box';
 import { SplashScreen } from './src/components/SplashScreen';
 import { DATA } from './MOCK_DATA/MOCK';
+import { Card } from './src/components/Card';
+import { COLORS } from './src/constants/colors';
 
 function App() {
   const renderItem = ({ item }) => <Box {...item} />;
@@ -23,6 +25,7 @@ function App() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Card background={COLORS.grass} title="Pokédex" />
       <FlatList
         data={DATA}
         renderItem={renderItem}
