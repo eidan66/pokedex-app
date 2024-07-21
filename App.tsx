@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, FlatList, View } from 'react-native';
 
 import { Box } from './src/components/Box';
+import { SplashScreen } from './src/components/SplashScreen';
 import { DATA } from './MOCK_DATA/MOCK';
 
 function App() {
   const renderItem = ({ item }) => <Box {...item} />;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1750); // Adjust the duration as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <SplashScreen onFinish={() => setIsLoading(false)} />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>

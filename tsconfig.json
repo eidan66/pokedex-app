@@ -14,6 +14,6 @@
     "lib": ["ES6", "ES2017"],
     "target": "ES5"
   },
-  "include": ["./src/**/*", "./declarations/*.d.ts", "./src/**/*.test.*"],
+  "include": ["./src/**/*", "./declarations/*.d.ts", "./src/**/*.test.*", "./assets/**/*"],
   "exclude": ["./dist", "./node_modules"]
 }
