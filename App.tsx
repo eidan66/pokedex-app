@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1750); // Adjust the duration as needed
+    }, 1750);
 
     return () => clearTimeout(timer);
   }, []);
@@ -34,13 +34,13 @@ function App() {
         numColumns={2}
         columnWrapperStyle={styles.row}
       />
-      {/* <FlatList
+      <FlatList
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         columnWrapperStyle={styles.row}
-      /> */}
+      />
     </SafeAreaView>
   );
 }
