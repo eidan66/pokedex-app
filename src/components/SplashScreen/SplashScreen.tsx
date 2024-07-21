@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { View, StyleSheet, Text, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 import { COLORS } from '../../constants/colors';
@@ -20,14 +20,15 @@ export const SplashScreen: FunctionComponent<SplashScreenProps> = ({ onFinish })
   }, [onFinish]);
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../../../assets/Pokédex_logo.png')} />
+    <View style={styles.container} testID="splash-container">
+      <Image source={require('../../../assets/Pokédex_logo.png')} testID="splash-logo" />
       <LottieView
         style={styles.lottie}
         source={require('./pokemonLottie.json')}
         autoPlay
         loop
         onAnimationFinish={onFinish}
+        testID="splash-lottie"
       />
     </View>
   );
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: 300,
-    height: height * 0.5, // Adjust the height as needed
+    height: height * 0.5,
   },
 });
 

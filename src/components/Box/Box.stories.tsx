@@ -1,8 +1,7 @@
-// stories/MyButton.stories.tsx
+// stories/Box.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Box } from './Box';
-import { DATA } from '../../../MOCK_DATA/MOCK';
 import { PokemonTypes } from '../../types';
 import { COLORS } from '../../constants/colors';
 
