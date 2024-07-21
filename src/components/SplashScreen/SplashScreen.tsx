@@ -21,10 +21,10 @@ export const SplashScreen: FunctionComponent<SplashScreenProps> = ({ onFinish })
 
   return (
     <View style={styles.container} testID="splash-container">
-      <Image source={require('../../../assets/Pokédex_logo.png')} testID="splash-logo" />
+      <Image source={require('../../../assets/Pokedex_logo.png')} testID="splash-logo" />
       <LottieView
         style={styles.lottie}
-        source={require('./pokemonLottie.json')}
+        source={require('../../../assets/pokemonLottie.json')}
         autoPlay
         loop
         onAnimationFinish={onFinish}

@@ -3,16 +3,20 @@ import { SafeAreaView, StyleSheet, FlatList, View } from 'react-native';
 
 import { Box } from './src/components/Box';
 import { SplashScreen } from './src/components/SplashScreen';
-import { DATA } from './MOCK_DATA/MOCK';
+import { CARD_DATA, DATA } from './MOCK_DATA/MOCK';
+import { Card } from './src/components/Card';
+import { COLORS } from './src/constants/colors';
 
 function App() {
   const renderItem = ({ item }) => <Box {...item} />;
+  const renderCardItem = ({ item }) => <Card {...item} />;
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1750); // Adjust the duration as needed
+    }, 1750);
 
     return () => clearTimeout(timer);
   }, []);
@@ -23,6 +27,13 @@ function App() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <FlatList
+        data={CARD_DATA}
+        renderItem={renderCardItem}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        columnWrapperStyle={styles.row}
+      />
       <FlatList
         data={DATA}
         renderItem={renderItem}
@@ -38,6 +49,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 10,
+  },
+  cardsContainer: {},
+  br: {
+    borderWidth: 1,
+    borderColor: COLORS.black,
+    height: 0,
   },
   row: {
     flex: 1,
