@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn
 
   run_tests:
     runs-on: ubuntu-latest
