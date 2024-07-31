@@ -2,14 +2,15 @@
   "name": "pokedex-server",
   "version": "1.0.0",
   "description": "Pokédex server",
+  "author": "Idan Levian, Almog Koren",
+  "license": "MIT",
   "main": "app.js",
+  "repository": "https://github.com/eidan66/pokedex-app",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "repository": "https://github.com/eidan66/pokedex-app",
-  "author": "Idan Levian, Almog Koren",
-  "license": "MIT",
   "devDependencies": {
     "nodemon": "^3.1.4"
-  }
+  },
+  "packageManager": "yarn@3.6.4"
 }
