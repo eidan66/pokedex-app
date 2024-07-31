@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Pokédex server",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "repository": "https://github.com/eidan66/pokedex-app",
   "author": "Idan Levian, Almog Koren",
   "license": "MIT"
