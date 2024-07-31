@@ -2,9 +2,15 @@ import * as http from 'http';
 import MOCK_DATA from './data/mock-data.js'
 
 const server = http.createServer((req, res) => {
-    res.setHeader('Content-Type', 'application/json')
-    const MOCK_DATA_JSON = JSON.stringify(MOCK_DATA);
-    res.end(MOCK_DATA_JSON);
+    const url = req.url;
+
+    if (url === '/pokemons') {
+        res.setHeader('Content-Type', 'application/json')
+        const MOCK_DATA_JSON = JSON.stringify(MOCK_DATA);
+        return res.end(MOCK_DATA_JSON);
+    }
+
+    res.end('Ok.');
 });
 
 server.listen(3000, () => {
