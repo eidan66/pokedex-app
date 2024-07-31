@@ -4,13 +4,18 @@
   "description": "Pokédex server",
   "author": "Idan Levian, Almog Koren",
   "license": "MIT",
-  "main": "app.js",
+  "main": "app.ts",
   "repository": "https://github.com/eidan66/pokedex-app",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "@types/http-server": "^0.12.4",
+    "@types/node": "^22.0.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@3.6.4",
+  "type": "module"
 }
