@@ -10,7 +10,8 @@ const server = http.createServer((req, res) => {
         return res.end(MOCK_DATA_JSON);
     }
 
-    res.end('Ok.');
+    res.statusCode = 404;
+    res.end();
 });
 
 server.listen(3000, () => {
