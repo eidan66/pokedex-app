@@ -16,7 +16,8 @@ const server = http.createServer(async (req, res) => {
             pokemonNumber: pad(pokemon.id),
             pokemonTypes: pokemon.types.map(type => type.type.name),
             boxBg: COLORS[pokemon.types[0].type.name],
-            pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/${pokemon.id}.png`
+            pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokemon.id}.gif?raw=true
+`
         };       
         
         res.setHeader('Content-Type', 'application/json')
@@ -61,7 +62,7 @@ const server = http.createServer(async (req, res) => {
                 pokemonNumber: pad(item.id),
                 pokemonTypes: item.types.map(type => type.type.name),
                 boxBg: COLORS[item.types[0].type.name],
-                pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/${item.id}.png`
+                pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${item.id}.gif?raw=true`
             };
         }));
         res.setHeader('Content-Type', 'application/json')
