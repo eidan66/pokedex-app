@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { SearchBar } from './SearchBar'; // Adjust the path if necessary
+import { SearchBar } from './SearchBar';
 
 describe('SearchBar Component', () => {
   it('should render correctly', () => {
