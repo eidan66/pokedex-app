@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, FlatList, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
-import { Box } from './src/components/Box';
+import { Providers } from './src/providers';
+
 import { SplashScreen } from './src/components/SplashScreen';
-import { CARD_DATA, DATA } from './MOCK_DATA/MOCK';
-import { Card } from './src/components/Card';
 import { COLORS } from './src/constants/colors';
 
-function App() {
-  const renderItem = ({ item }) => <Box {...item} />;
-  const renderCardItem = ({ item }) => <Card {...item} />;
+import { Homepage } from './src/pages';
 
+function App() {
   const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch('http://localhost:3000');
+      if (!res.ok) {
+        throw new Error(`Res error -> ${res.status}`);
+      }
+
+      console.log('[TEMP] log -  fetchData  res:', res);
+    } catch (error) {
+      console.log('[TEMP] log -  fetchData  error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,26 +37,19 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <SplashScreen onFinish={() => setIsLoading(false)} />;
+    return (
+      <Providers>
+        <SplashScreen onFinish={() => setIsLoading(false)} />
+      </Providers>
+    );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={CARD_DATA}
-        renderItem={renderCardItem}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-      />
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
-      />
-    </SafeAreaView>
+    <Providers>
+      <SafeAreaView style={styles.container}>
+        <Homepage />
+      </SafeAreaView>
+    </Providers>
   );
 }
 
@@ -65,6 +73,7 @@ const styles = StyleSheet.create({
 
 let AppEntryPoint = App;
 
+// @ts-ignore
 if (process.env.STORYBOOK_ENABLED) {
   AppEntryPoint = require('./.ondevice').default;
 }
