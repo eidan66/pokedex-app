@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
-import { CARD_DATA, DATA } from '../../..//MOCK_DATA/MOCK';
+import { CARD_DATA } from '../../..//MOCK_DATA/MOCK';
 
 import { Box } from '../../components/Box';
 import { Card } from '../../components/Card';
@@ -11,22 +11,17 @@ import { setPokemons } from '../../redux/slices/pokemonSlice';
 import { COLORS } from '../../constants/colors';
 import { SearchBar } from '../../components/SearchBar';
 
-export const Homepage = () => {
+export const Homepage = ({ pokemodList }: { pokemodList: any }) => {
   // @ts-expect-error
   const renderItem = ({ item }) => <Box {...item} />;
   // @ts-expect-error
   const renderCardItem = ({ item }) => <Card {...item} />;
 
-  const [searchPhrase, setSearchPhrase] = useState('');
-  const [clicked, setClicked] = useState(false);
-
   const dispatch = useDispatch();
   const pokemons = useSelector((state: RootState) => state.pokemon.pokemons);
 
   const fetchPokemons = () => {
-    // For this basic example, let's just use a hardcoded list of Pokémon names
-    const fetchedPokemons = ['Bulbasaur', 'Ivysaur', 'Venusaur'];
-    dispatch(setPokemons(fetchedPokemons));
+    dispatch(setPokemons(pokemodList));
   };
 
   useEffect(() => {
@@ -50,7 +45,7 @@ export const Homepage = () => {
         columnWrapperStyle={styles.row}
       />
       <FlatList
-        data={DATA}
+        data={pokemodList}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
