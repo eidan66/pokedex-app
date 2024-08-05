@@ -1,5 +1,5 @@
 import { FlatList, Image, ImageStyle, StyleSheet, Text, View, ViewStyle } from 'react-native';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import PokeballSvg from '../../../assets/svg/pokeballSvg.svg';
 import { COLORS } from '../../constants/colors';
@@ -14,8 +14,6 @@ interface BoxProps {
   pokemonName: string;
   pokemonNumber: string;
   pokemonTypes: PokemonTypes[];
-  size?: { width?: number; height?: number };
-  imageStyle?: ImageStyle;
 }
 
 export const Box: FunctionComponent<BoxProps> = ({
@@ -24,9 +22,18 @@ export const Box: FunctionComponent<BoxProps> = ({
   pokemonName,
   pokemonNumber,
   pokemonTypes,
-  size,
-  imageStyle = {},
 }) => {
+  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({ width: 100, height: 0 });
+
+  useEffect(() => {
+    Image.getSize(pokemonSvg, (width, height) => {
+      const updatedWidth = width >= 100 ? 110 : width;
+      const updatedHeight = height >= 100 ? 140 : height;
+
+      setImageSize({ width: updatedWidth, height: updatedHeight });
+    });
+  }, []);
+
   const renderTypes = (pokemonType: PokemonTypes, index: number) => (
     <View key={`${pokemonType}${index}`}>
       <TypeBox bg={boxBg} typeName={pokemonType} />
@@ -34,6 +41,7 @@ export const Box: FunctionComponent<BoxProps> = ({
   );
 
   const hasTwoTypes = pokemonTypes.length === 2;
+  const largeGifStyle = imageSize.width > 100 || imageSize.height > 100 ? styles.largeImage : {};
 
   return (
     <View style={[styles.container, { backgroundColor: `${boxBg}${COLORS['0.8']}` }]}>
@@ -50,11 +58,11 @@ export const Box: FunctionComponent<BoxProps> = ({
             testID="pokeball-svg"
           />
           <Image
-            style={[hasTwoTypes ? styles.image : styles.singleImageType, imageStyle]}
+            style={[hasTwoTypes ? styles.image : styles.singleImageType, largeGifStyle]}
             source={{ uri: pokemonSvg }}
             resizeMode="contain"
-            width={size?.width || 80}
-            height={size?.height || 70}
+            width={imageSize.width}
+            height={imageSize.height}
             testID="pokemon-image"
           />
         </View>
@@ -79,8 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingTop: 8,
-    // TODO: Fix fonts later...
-    // fontFamily: Fonts.GeneraSemiBold,
+    fontFamily: Fonts.GeneraSemiBold,
   },
   pokemonNumber: {
     fontFamily: Fonts.PokemonHollowSolid,
@@ -95,8 +102,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   image: {
-    left: 50,
+    left: 45,
     bottom: 40,
+  },
+  largeImage: {
+    bottom: 60,
   },
   pokeball: {
     position: 'absolute',
@@ -104,7 +114,7 @@ const styles = StyleSheet.create({
     bottom: -30,
   },
   singleImageType: {
-    left: 50,
+    left: 45,
     bottom: 10,
   },
   singlePokeballType: {

@@ -7,18 +7,22 @@ import { SplashScreen } from './src/components/SplashScreen';
 import { COLORS } from './src/constants/colors';
 
 import { Homepage } from './src/pages';
+import { FetchResponse } from './src/types';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [apiData, setApiData] = useState<FetchResponse>({});
 
   const fetchData = async () => {
     try {
-      const res = await fetch('http://localhost:3000');
-      if (!res.ok) {
-        throw new Error(`Res error -> ${res.status}`);
+      const response = await fetch('http://localhost:3000/pokemons');
+      if (!response.ok) {
+        throw new Error(`response error -> ${response.status}`);
       }
 
-      console.log('[TEMP] log -  fetchData  res:', res);
+      const jsonData = (await response.json()) as FetchResponse;
+
+      setApiData(jsonData);
     } catch (error) {
       console.log('[TEMP] log -  fetchData  error:', error);
     }
@@ -27,6 +31,10 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log('apiData', { apiData });
+  }, [apiData]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,7 +55,7 @@ function App() {
   return (
     <Providers>
       <SafeAreaView style={styles.container}>
-        <Homepage />
+        <Homepage pokemodList={apiData.results} />
       </SafeAreaView>
     </Providers>
   );
