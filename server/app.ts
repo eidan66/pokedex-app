@@ -5,7 +5,24 @@ import COLORS from './colors.js';
 import { PokemonClient } from 'pokenode-ts';
 
 const server = http.createServer(async (req, res) => {
-    
+    const api = new PokemonClient();
+
+    if (req.url?.startsWith('/pokemons/')) {
+        const name = req.url?.replace('/pokemons/', '');
+        const pokemon = await api.getPokemonByName(name);
+
+        const pokemonResponse = {
+            pokemonName: pokemon.name,
+            pokemonNumber: pad(pokemon.id),
+            pokemonTypes: pokemon.types.map(type => type.type.name),
+            boxBg: COLORS[pokemon.types[0].type.name],
+            pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/${pokemon.id}.png`
+        };       
+        
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify(pokemonResponse))
+    }
+
     if (req.url?.startsWith('/pokemons')) {
         const defaultOffset = 0;
         const defaultLimit = 20;
@@ -24,8 +41,6 @@ const server = http.createServer(async (req, res) => {
             }
         }
         
-        const api = new PokemonClient();
-
         try {
         const responseData = {} as {
             count: number,
@@ -40,14 +55,13 @@ const server = http.createServer(async (req, res) => {
         responseData.previous = pokemonData.previous?.replace('https://pokeapi.co/api/v2/pokemon', 'localhost:3000/pokemons');
         responseData.results = await Promise.all(pokemonData.results.map(async pokemon => {
             const item = await api.getPokemonByName(pokemon.name);
-            let pokemonNumber =  pokemon.url.replace('https://pokeapi.co/api/v2/pokemon/', '').replace('/', '');
 
             return {
                 pokemonName: item.name,
-                pokemonNumber,
+                pokemonNumber: pad(item.id),
                 pokemonTypes: item.types.map(type => type.type.name),
                 boxBg: COLORS[item.types[0].type.name],
-                pokemonSvg: `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/${pokemonNumber}.gif?raw=true`
+                pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/${item.id}.png`
             };
         }));
         res.setHeader('Content-Type', 'application/json')
@@ -64,3 +78,15 @@ const server = http.createServer(async (req, res) => {
 server.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
+
+function pad(num: number) {
+    if (num > 99) {
+        return `#${num}`
+    }
+
+    if (num > 9) {
+        return `#0${num}`
+    }
+
+    return `#00${num}`
+}
