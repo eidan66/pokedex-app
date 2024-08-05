@@ -1,6 +1,7 @@
 export const COLORS = {
   black: '#000000',
   white: '#ffffff',
+  gray: '#f3f3f3',
 
   // Pokemon types colors
   bug: '#A6B91A',
@@ -23,6 +24,7 @@ export const COLORS = {
   water: '#6390F0',
 
   // Opacity
+  transparent: 'transparent',
   '0.1': '1a',
   '0.2': '33',
   '0.3': '4d',

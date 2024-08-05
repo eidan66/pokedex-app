@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { CARD_DATA, DATA } from '../../..//MOCK_DATA/MOCK';
 
@@ -9,12 +9,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { setPokemons } from '../../redux/slices/pokemonSlice';
 import { COLORS } from '../../constants/colors';
+import { SearchBar } from '../../components/SearchBar';
 
 export const Homepage = () => {
   // @ts-expect-error
   const renderItem = ({ item }) => <Box {...item} />;
   // @ts-expect-error
   const renderCardItem = ({ item }) => <Card {...item} />;
+
+  const [searchPhrase, setSearchPhrase] = useState('');
+  const [clicked, setClicked] = useState(false);
 
   const dispatch = useDispatch();
   const pokemons = useSelector((state: RootState) => state.pokemon.pokemons);
@@ -35,6 +39,9 @@ export const Homepage = () => {
 
   return (
     <>
+      <View>
+        <SearchBar />
+      </View>
       <FlatList
         data={CARD_DATA}
         renderItem={renderCardItem}
