@@ -1,12 +1,12 @@
-// stories/SearchBar.stories.tsx
+// stories/Homepage.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SearchBar } from './SearchBar';
+import { Homepage } from './Homepage';
 
 const meta = {
-  title: 'components/SearchBar',
-  component: SearchBar,
-} satisfies Meta<typeof SearchBar>;
+  title: 'Pages/Homepage',
+  component: Homepage,
+} satisfies Meta<typeof Homepage>;
 
 export default meta;
 
