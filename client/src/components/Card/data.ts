@@ -1,28 +1,37 @@
 import { COLORS } from '../../constants/colors';
 
+export enum Cards {
+  Pokedex = 'Pokédex',
+  Moves = 'Moves',
+  Abilities = 'Abilities',
+  Items = 'Items',
+  Locations = 'Locations',
+  TypeCharts = 'Type Charts',
+}
+
 export const CARDS_DATA = [
   {
-    title: 'Pokédex',
+    title: Cards.Pokedex,
     background: COLORS.grass,
   },
   {
-    title: 'Moves',
+    title: Cards.Moves,
     background: COLORS.fire,
   },
   {
-    title: 'Abilities',
+    title: Cards.Abilities,
     background: COLORS.water,
   },
   {
-    title: 'Items',
+    title: Cards.Items,
     background: COLORS.electric,
   },
   {
-    title: 'Locations',
+    title: Cards.Locations,
     background: COLORS.poison,
   },
   {
-    title: 'Type Charts',
+    title: Cards.TypeCharts,
     background: COLORS.dark,
   },
 ];
