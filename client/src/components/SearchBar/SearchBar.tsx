@@ -20,6 +20,7 @@ export const SearchBar: React.FunctionComponent<SearchBarComponentProps> = () =>
     <View style={styles.view}>
       <Text style={styles.title}>What Pokemon{'\n'}are you looking for?</Text>
       <SearchBarComponent
+        testID="searchBarContainer"
         ref={(currentRef: any) => (searchBarRef.current = currentRef)}
         placeholder="Type Pokemon,Move,Ability etc..."
         onChangeText={updateSearch}

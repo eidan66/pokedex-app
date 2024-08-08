@@ -7,7 +7,7 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|react-native-svg|@react-native|@react-navigation|@rneui/themed|@rneui/base|react-native-size-matters|react-native-ratings|react-native-vector-icons)/)',
+    'node_modules/(?!(react-native|react-native-svg|@react-native|@react-navigation|@rneui/themed|@rneui/base|react-native-size-matters|react-native-ratings|react-native-vector-icons|react-redux)/)',
   ],
   moduleNameMapper: {
     '\\.svg': '<rootDir>/__tests__/__mocks__/svg.js',
