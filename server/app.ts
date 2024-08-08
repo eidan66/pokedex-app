@@ -1,8 +1,11 @@
 import * as http from 'http';
 import * as querystring from 'querystring';
 import * as url from 'url';
+import { Pokemon, PokemonClient } from 'pokenode-ts';
+
 import COLORS from './colors.js';
-import { PokemonClient } from 'pokenode-ts';
+import { APIPageResponse, APIPokemon, APIPokemonType } from './responseTypes.js';
+
 
 const server = http.createServer(async (req, res) => {
     const api = new PokemonClient();
@@ -11,14 +14,7 @@ const server = http.createServer(async (req, res) => {
         const name = req.url?.replace('/pokemons/', '');
         const pokemon = await api.getPokemonByName(name);
 
-        const pokemonResponse = {
-            pokemonName: pokemon.name,
-            pokemonNumber: pad(pokemon.id),
-            pokemonTypes: pokemon.types.map(type => type.type.name),
-            boxBg: COLORS[pokemon.types[0].type.name],
-            pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokemon.id}.gif?raw=true
-`
-        };       
+        const pokemonResponse = pokeAPIPokemonToAPIPokemon(pokemon);       
         
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify(pokemonResponse))
@@ -43,27 +39,21 @@ const server = http.createServer(async (req, res) => {
         }
         
         try {
-        const responseData = {} as {
-            count: number,
-            next:string | null | undefined,
-            previous: string | null | undefined, 
-            results: {pokemonName: string, pokemonNumber: string, pokemonTypes: string[], boxBg: string, pokemonSvg: string}[]
+        const responseData: APIPageResponse<APIPokemon> = {
+            count: 0,
+            next: undefined,
+            previous: undefined,
+            results: []
         };
+
         const pokemonData = await api.listPokemons(offset, limit);
-        console.dir(pokemonData); 
         responseData.count = pokemonData.count;
         responseData.next = pokemonData.next?.replace('https://pokeapi.co/api/v2/pokemon', 'localhost:3000/pokemons');
         responseData.previous = pokemonData.previous?.replace('https://pokeapi.co/api/v2/pokemon', 'localhost:3000/pokemons');
         responseData.results = await Promise.all(pokemonData.results.map(async pokemon => {
             const item = await api.getPokemonByName(pokemon.name);
 
-            return {
-                pokemonName: item.name,
-                pokemonNumber: pad(item.id),
-                pokemonTypes: item.types.map(type => type.type.name),
-                boxBg: COLORS[item.types[0].type.name],
-                pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${item.id}.gif?raw=true`
-            };
+            return pokeAPIPokemonToAPIPokemon(item);
         }));
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify(responseData))
@@ -90,4 +80,25 @@ function pad(num: number) {
     }
 
     return `#00${num}`
+}
+
+function pokeAPIPokemonToAPIPokemon(pokeApiPokemon: Pokemon): APIPokemon {
+    return {
+        pokemonName: pokeApiPokemon.name,
+        pokemonNumber: pad(pokeApiPokemon.id),
+        pokemonTypes: pokeApiPokemon.types.map(({type:{name}})=> mapToAPIPokemonType(name)),
+        boxBg: COLORS[pokeApiPokemon.types[0].type.name],
+        pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`
+    };
+}
+
+function mapToAPIPokemonType(type: string): APIPokemonType {
+
+    const apiType = Object.keys(APIPokemonType).find((s) => s.toLowerCase() === type.toLowerCase());    
+
+    if (!apiType) {
+        return APIPokemonType.Unknown;
+    }
+    
+    return apiType as APIPokemonType;
 }
