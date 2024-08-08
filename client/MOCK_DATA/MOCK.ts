@@ -95,30 +95,3 @@ export const DATA = [
     pokemonSvg: 'https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/12.gif?raw=true',
   },
 ];
-
-export const CARD_DATA = [
-  {
-    title: 'Pokédex',
-    background: COLORS.grass,
-  },
-  {
-    title: 'Moves',
-    background: COLORS.fire,
-  },
-  {
-    title: 'Abilities',
-    background: COLORS.water,
-  },
-  {
-    title: 'Items',
-    background: COLORS.electric,
-  },
-  {
-    title: 'Locations',
-    background: COLORS.poison,
-  },
-  {
-    title: 'Type Charts',
-    background: COLORS.dark,
-  },
-];

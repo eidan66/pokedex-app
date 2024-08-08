@@ -18,7 +18,7 @@ export const SearchBar: React.FunctionComponent<SearchBarComponentProps> = () =>
 
   return (
     <View style={styles.view}>
-      <Text style={styles.title}>What Pokemon are you looking for?</Text>
+      <Text style={styles.title}>What Pokemon{'\n'}are you looking for?</Text>
       <SearchBarComponent
         ref={(currentRef: any) => (searchBarRef.current = currentRef)}
         placeholder="Type Pokemon,Move,Ability etc..."
@@ -41,13 +41,13 @@ export const SearchBar: React.FunctionComponent<SearchBarComponentProps> = () =>
 
 const styles = StyleSheet.create({
   view: {
-    margin: 10,
+    margin: 15,
     height: 170,
     justifyContent: 'space-between',
     marginBottom: 30,
   },
   title: {
-    fontSize: 36,
+    fontSize: 32,
     lineHeight: 42,
     fontFamily: Fonts.GeneraSemiBold,
     letterSpacing: 1,

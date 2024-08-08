@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
-import { CARD_DATA, DATA } from '../../..//MOCK_DATA/MOCK';
-
-import { Box } from '../../components/Box';
 import { Card } from '../../components/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { setPokemons } from '../../redux/slices/pokemonSlice';
 import { COLORS } from '../../constants/colors';
 import { SearchBar } from '../../components/SearchBar';
+import { CARDS_DATA } from '../../components/Card/data';
 
 export const Homepage = () => {
+  const onCardPress = (title: string) => {
+    // TODO: Implement Navigation logic here...
+    console.log(`Navigate to -> ${title}`);
+  };
   // @ts-expect-error
-  const renderItem = ({ item }) => <Box {...item} />;
-  // @ts-expect-error
-  const renderCardItem = ({ item }) => <Card {...item} />;
-
-  const [searchPhrase, setSearchPhrase] = useState('');
-  const [clicked, setClicked] = useState(false);
+  const renderCardItem = ({ item }) => <Card {...item} onCardPress={onCardPress} />;
 
   const dispatch = useDispatch();
   const pokemons = useSelector((state: RootState) => state.pokemon.pokemons);
@@ -43,18 +40,12 @@ export const Homepage = () => {
         <SearchBar />
       </View>
       <FlatList
-        data={CARD_DATA}
+        data={CARDS_DATA}
         renderItem={renderCardItem}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => `${item}-${index.toString()}`}
         numColumns={2}
         columnWrapperStyle={styles.row}
-      />
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
+        scrollEnabled={false}
       />
     </>
   );
