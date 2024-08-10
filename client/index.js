@@ -2,6 +2,7 @@
  * @format
  */
 
+import 'react-native-devsettings/withAsyncStorage';
 import { AppRegistry } from 'react-native';
 
 import App from './App';

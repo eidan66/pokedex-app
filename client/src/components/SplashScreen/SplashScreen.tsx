@@ -3,32 +3,32 @@ import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 import { COLORS } from '../../constants/colors';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/routes';
+import { RootStackTypes } from '../../navigation/routes/types';
 
-interface SplashScreenProps {
-  onFinish: () => void;
-}
+type SplashScreenProps = NativeStackScreenProps<RootStackParamList, RootStackTypes.SplashScreen>;
 
 const { height } = Dimensions.get('window');
 
-export const SplashScreen: FunctionComponent<SplashScreenProps> = ({ onFinish }) => {
+export const SplashScreen: FunctionComponent<SplashScreenProps> = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      onFinish();
-    }, 3000);
+      navigation.replace(RootStackTypes.Homepage);
+    }, 2500);
 
     return () => clearTimeout(timer);
-  }, [onFinish]);
+  }, []);
 
   return (
     <View style={styles.container} testID="splash-container">
       <Image source={require('../../../assets/Pokedex_logo.png')} testID="splash-logo" />
       <LottieView
         style={styles.lottie}
+        testID="splash-lottie"
         source={require('../../../assets/pokemonLottie.json')}
         autoPlay
         loop
-        onAnimationFinish={onFinish}
-        testID="splash-lottie"
       />
     </View>
   );
@@ -46,5 +46,3 @@ const styles = StyleSheet.create({
     height: height * 0.5,
   },
 });
-
-export default SplashScreen;
