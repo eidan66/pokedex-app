@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Image } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LottieView from 'lottie-react-native';
+import React, { FunctionComponent, useEffect } from 'react';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
 
 import { COLORS } from '../../constants/colors';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
 

@@ -1,5 +1,6 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
+import React from 'react';
+
 import { TypeBox } from './TypeBox';
 import { COLORS } from '../../constants/colors';
 import { PokemonTypes } from '../../types';

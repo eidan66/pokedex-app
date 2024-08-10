@@ -1,11 +1,11 @@
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react-native';
-import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 
 import { Homepage } from './Homepage';
-import { setPokemons } from '../../redux/slices/pokemonSlice';
 import { CARDS_DATA } from '../../components/Card/data';
+import { setPokemons } from '../../redux/slices/pokemonSlice';
 
 const mockStore = configureStore([]);
 

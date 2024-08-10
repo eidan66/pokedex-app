@@ -1,16 +1,16 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Card } from '../../components/Card';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { setPokemons } from '../../redux/slices/pokemonSlice';
-import { COLORS } from '../../constants/colors';
+import { CARDS_DATA, Cards } from '../../components/Card/data';
 import { SearchBar } from '../../components/SearchBar';
-import { Cards, CARDS_DATA } from '../../components/Card/data';
+import { COLORS } from '../../constants/colors';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
+import { setPokemons } from '../../redux/slices/pokemonSlice';
+import { RootState } from '../../redux/store';
 
 type HomepageScreenProps = NativeStackScreenProps<RootStackParamList, RootStackTypes.Homepage>;
 

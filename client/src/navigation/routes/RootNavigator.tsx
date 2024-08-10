@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { SplashScreen } from '../../components/SplashScreen';
-import { COLORS } from '../../constants/colors';
 import { RootStackTypes } from './types';
 import { Cards } from '../../components/Card/data';
-import { Pokedex, Homepage, Moves, Abilities, Items, Locations, TypeCharts } from '../../pages';
+import { SplashScreen } from '../../components/SplashScreen';
+import { COLORS } from '../../constants/colors';
+import { Abilities, Homepage, Items, Locations, Moves, Pokedex, TypeCharts } from '../../pages';
 
 export type RootStackParamList = {
   SplashScreen: undefined;

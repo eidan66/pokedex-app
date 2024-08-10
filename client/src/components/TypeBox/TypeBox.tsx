@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
-import { PokemonTypes } from '../../types';
+import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+
 import { COLORS } from '../../constants/colors';
+import { PokemonTypes } from '../../types';
 import { capitalizeFirstLetter } from '../../utils/capitalize';
 
 interface TypeBoxProps {
