@@ -1,4 +1,5 @@
 {
   "name": "pokedexApp",
-  "displayName": "pokedexApp"
+  "displayName": "pokedexApp",
+  "jsEngine": "jsi"
 }

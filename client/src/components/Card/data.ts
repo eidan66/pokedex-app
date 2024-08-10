@@ -1,7 +1,9 @@
 import { COLORS } from '../../constants/colors';
 
 export enum Cards {
-  Pokedex = 'Pokédex',
+  // We named Pokédex because the title
+  'Pokédex' = 'Pokédex',
+  Pokedex = 'Pokedex',
   Moves = 'Moves',
   Abilities = 'Abilities',
   Items = 'Items',
@@ -11,7 +13,7 @@ export enum Cards {
 
 export const CARDS_DATA = [
   {
-    title: Cards.Pokedex,
+    title: Cards.Pokédex,
     background: COLORS.grass,
   },
   {

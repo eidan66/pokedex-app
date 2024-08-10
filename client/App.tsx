@@ -3,14 +3,10 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { Providers } from './src/providers';
 
-import { SplashScreen } from './src/components/SplashScreen';
 import { COLORS } from './src/constants/colors';
-
-import { Homepage } from './src/pages';
+import { RootNavigator } from './src/navigation/routes';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
   const fetchData = async () => {
     try {
       const res = await fetch('http://localhost:3000');
@@ -28,26 +24,10 @@ function App() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1750);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Providers>
-        <SplashScreen onFinish={() => setIsLoading(false)} />
-      </Providers>
-    );
-  }
-
   return (
     <Providers>
       <SafeAreaView style={styles.container}>
-        <Homepage />
+        <RootNavigator />
       </SafeAreaView>
     </Providers>
   );
@@ -56,18 +36,7 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
-  },
-  cardsContainer: {},
-  br: {
-    borderWidth: 1,
-    borderColor: COLORS.black,
-    height: 0,
-  },
-  row: {
-    flex: 1,
-    justifyContent: 'space-around',
-    marginBottom: 10,
+    backgroundColor: COLORS.white,
   },
 });
 

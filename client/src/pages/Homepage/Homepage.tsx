@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Card } from '../../components/Card';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +8,18 @@ import { RootState } from '../../redux/store';
 import { setPokemons } from '../../redux/slices/pokemonSlice';
 import { COLORS } from '../../constants/colors';
 import { SearchBar } from '../../components/SearchBar';
-import { CARDS_DATA } from '../../components/Card/data';
+import { Cards, CARDS_DATA } from '../../components/Card/data';
+import { RootStackParamList } from '../../navigation/routes';
+import { RootStackTypes } from '../../navigation/routes/types';
 
-export const Homepage = () => {
-  const onCardPress = (title: string) => {
-    // TODO: Implement Navigation logic here...
-    console.log(`Navigate to -> ${title}`);
+type HomepageScreenProps = NativeStackScreenProps<RootStackParamList, RootStackTypes.Homepage>;
+
+export const Homepage: FunctionComponent<HomepageScreenProps> = ({ navigation }) => {
+  const onCardPress = (title: Cards) => {
+    const navigateTo = title === Cards.Pokédex ? Cards.Pokedex : title;
+    navigation.navigate(navigateTo);
   };
+
   // @ts-expect-error
   const renderCardItem = ({ item }) => <Card {...item} onCardPress={onCardPress} />;
 
