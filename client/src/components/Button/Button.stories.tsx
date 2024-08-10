@@ -1,10 +1,10 @@
 // stories/MyButton.stories.tsx
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { MyButton } from "./Button";
+import { MyButton } from './Button';
 
 const meta = {
-  title: "components/MyButton",
+  title: 'components/MyButton',
   component: MyButton,
 } satisfies Meta<typeof MyButton>;
 
@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    text: "Hello World",
-    color: "purple",
+    text: 'Hello World',
+    color: 'purple',
   },
 };

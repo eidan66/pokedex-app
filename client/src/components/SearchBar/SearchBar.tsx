@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
 import { SearchBar as SearchBarComponent } from '@rneui/themed';
-import { View, StyleSheet, Text, Platform } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
-import { Fonts } from '../../constants/fonts';
 import { COLORS } from '../../constants/colors';
+import { Fonts } from '../../constants/fonts';
 
 type SearchBarComponentProps = {};
 

@@ -2,7 +2,7 @@
  * Temp file just for initialize Redux flow.
  */
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface PokemonState {
   pokemons: string[]; // A simple list of Pokémon names for this basic example

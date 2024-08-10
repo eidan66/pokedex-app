@@ -2,8 +2,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Box } from './Box';
-import { PokemonTypes } from '../../types';
 import { COLORS } from '../../constants/colors';
+import { PokemonTypes } from '../../types';
 
 const meta = {
   title: 'components/Box',

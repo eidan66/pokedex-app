@@ -1,8 +1,9 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
+import React from 'react';
+
 import { Box } from './Box';
-import { PokemonTypes } from '../../types';
 import { COLORS } from '../../constants/colors';
+import { PokemonTypes } from '../../types';
 
 describe('Box component', () => {
   it('renders correctly with given props', () => {

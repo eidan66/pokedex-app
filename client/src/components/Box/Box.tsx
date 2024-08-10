@@ -1,12 +1,12 @@
-import { FlatList, Image, ImageStyle, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
+import { FlatList, Image, ImageStyle, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import PokeballSvg from '../../../assets/svg/pokeballSvg.svg';
 import { COLORS } from '../../constants/colors';
-import { PokemonTypes } from '../../types';
 import { Fonts } from '../../constants/fonts';
-import { TypeBox } from '../TypeBox';
+import { PokemonTypes } from '../../types';
 import { capitalizeFirstLetter } from '../../utils/capitalize';
+import { TypeBox } from '../TypeBox';
 
 interface BoxProps {
   boxBg?: string;
