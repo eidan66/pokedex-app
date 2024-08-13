@@ -1,4 +1,4 @@
-import { APIPokemonType } from "./responseTypes";
+import { APIPokemonType } from "./responseTypes.js";
 
 export default {
     // Pokemon types colors
