@@ -1,22 +1,19 @@
 {
-    "compilerOptions": {
-      "strict": true,
-      "module": "ES2022",
-      "moduleResolution": "Node",
-      "skipLibCheck": true,
-      "noEmit": true,
-      "allowJs": true,
-      "allowImportingTsExtensions": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "isolatedModules": true,
-      "types": ["node"],
-      "target": "ES2016"   
-    },    
-    "ts-node": {
-        "esm": true
-    },
-    "include": ["./*", "./declarations/*.d.ts"],
-    "exclude": ["./dist", "./node_modules"]
-  }
-  
+  "compilerOptions": {
+    "strict": true,
+    "module": "NodeNext",
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "types": ["node"],
+    "target": "ES2016"   
+  },    
+  "ts-node": {
+      "esm": true
+  },
+  "include": ["./*", "./declarations/*.d.ts"],
+  "exclude": ["./dist", "./node_modules"]
+}
