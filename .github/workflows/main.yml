@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   install_dependencies_server:
-    if: github.event.label == 'server' ||  contains(github.event.pull_request.changed_files, 'server/')
+    if: contains(github.event.pull_request.labels.*.name, 'server') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'server/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'server/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
         run: cd server && yarn --frozen-lockfile
 
   install_dependencies_client:
-    if: github.event.label == 'client' || contains(github.event.pull_request.changed_files, 'client/')
+    if: contains(github.event.pull_request.labels.*.name, 'client') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'client/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'client/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -68,7 +68,7 @@ jobs:
         run: cd client && yarn --frozen-lockfile
 
   run_tests_server:
-    if: github.event.label == 'server' || contains(github.event.pull_request.changed_files, 'server/')
+    if: contains(github.event.pull_request.labels.*.name, 'server') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'server/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'server/')
     runs-on: ubuntu-latest
     needs: install_dependencies_server
     steps:
@@ -91,7 +91,7 @@ jobs:
         run: cd server && yarn jest
 
   run_tests_client:
-    if: github.event.label == 'client' || contains(github.event.pull_request.changed_files, 'client/')
+    if: contains(github.event.pull_request.labels.*.name, 'client') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'client/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'client/')
     runs-on: ubuntu-latest
     needs: install_dependencies_client
     steps:
