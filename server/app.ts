@@ -87,7 +87,7 @@ function pokeAPIPokemonToAPIPokemon(pokeApiPokemon: Pokemon): APIPokemon {
         pokemonName: pokeApiPokemon.name,
         pokemonNumber: pad(pokeApiPokemon.id),
         pokemonTypes: pokeApiPokemon.types.map(({type:{name}})=> mapToAPIPokemonType(name)),
-        boxBg: COLORS[pokeApiPokemon.types[0].type.name],
+        boxBg: COLORS[mapToAPIPokemonType(pokeApiPokemon.types[0].type.name)],
         pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`
     };
 }
