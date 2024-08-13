@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { FlatList, Image, ImageStyle, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import PokeballSvg from '../../../assets/svg/pokeballSvg.svg';
 import { COLORS } from '../../constants/colors';
@@ -7,15 +7,10 @@ import { Fonts } from '../../constants/fonts';
 import { PokemonTypes } from '../../types';
 import { capitalizeFirstLetter } from '../../utils/capitalize';
 import { TypeBox } from '../TypeBox';
+import { PokedexPokemon } from '../../pages/Pokedex/types';
 
-interface BoxProps {
-  boxBg?: string;
-  pokemonSvg: string;
-  pokemonName: string;
-  pokemonNumber: string;
-  pokemonTypes: PokemonTypes[];
-  size?: { width?: number; height?: number };
-  imageStyle?: ImageStyle;
+interface BoxProps extends PokedexPokemon {
+  onPokemonPress: (...args: any) => void;
 }
 
 export const Box: FunctionComponent<BoxProps> = ({
@@ -26,6 +21,7 @@ export const Box: FunctionComponent<BoxProps> = ({
   pokemonTypes,
   size,
   imageStyle = {},
+  onPokemonPress,
 }) => {
   const renderTypes = (pokemonType: PokemonTypes, index: number) => (
     <View key={`${pokemonType}${index}`}>
@@ -33,33 +29,35 @@ export const Box: FunctionComponent<BoxProps> = ({
     </View>
   );
 
-  const hasTwoTypes = pokemonTypes.length === 2;
+  const hasTwoTypes = pokemonTypes?.length === 2;
 
   return (
-    <View style={[styles.container, { backgroundColor: `${boxBg}${COLORS['0.8']}` }]}>
-      <View>
-        <View style={styles.headerContainer}>
-          <Text style={styles.name}>{capitalizeFirstLetter(pokemonName)}</Text>
-          <Text style={styles.pokemonNumber}>{pokemonNumber}</Text>
-        </View>
-        <View style={styles.types}>{pokemonTypes.map((pokemonType, index) => renderTypes(pokemonType, index))}</View>
-        <View style={styles.pokeImgContainer}>
-          <PokeballSvg
-            style={hasTwoTypes ? styles.pokeball : styles.singlePokeballType}
-            fill={`${COLORS.white}${COLORS['0.2']}`}
-            testID="pokeball-svg"
-          />
-          <Image
-            style={[hasTwoTypes ? styles.image : styles.singleImageType, imageStyle]}
-            source={{ uri: pokemonSvg }}
-            resizeMode="contain"
-            width={size?.width || 80}
-            height={size?.height || 70}
-            testID="pokemon-image"
-          />
+    <TouchableOpacity onPressIn={() => onPokemonPress()} testID={`${pokemonName}-${pokemonNumber}`}>
+      <View style={[styles.container, { backgroundColor: `${boxBg}${COLORS['0.8']}` }]}>
+        <View>
+          <View style={styles.headerContainer}>
+            <Text style={styles.name}>{capitalizeFirstLetter(pokemonName)}</Text>
+            <Text style={styles.pokemonNumber}>{pokemonNumber}</Text>
+          </View>
+          <View style={styles.types}>{pokemonTypes.map((pokemonType, index) => renderTypes(pokemonType, index))}</View>
+          <View style={styles.pokeImgContainer}>
+            <PokeballSvg
+              style={hasTwoTypes ? styles.pokeball : styles.singlePokeballType}
+              fill={`${COLORS.white}${COLORS['0.2']}`}
+              testID="pokeball-svg"
+            />
+            <Image
+              style={[hasTwoTypes ? styles.image : styles.singleImageType, imageStyle]}
+              source={{ uri: pokemonSvg }}
+              resizeMode="contain"
+              width={size?.width || 80}
+              height={size?.height || 70}
+              testID="pokemon-image"
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -79,8 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingTop: 8,
-    // TODO: Fix fonts later...
-    // fontFamily: Fonts.GeneraSemiBold,
+    fontFamily: Fonts.GeneraSemiBold,
   },
   pokemonNumber: {
     fontFamily: Fonts.PokemonHollowSolid,

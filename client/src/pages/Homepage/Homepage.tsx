@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '../../components/Card';
 import { CARDS_DATA, Cards } from '../../components/Card/data';
 import { SearchBar } from '../../components/SearchBar';
-import { COLORS } from '../../constants/colors';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
 import { setPokemons } from '../../redux/slices/pokemonSlice';
@@ -58,16 +57,6 @@ export const Homepage: FunctionComponent<HomepageScreenProps> = ({ navigation })
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 10,
-  },
-  cardsContainer: {},
-  br: {
-    borderWidth: 1,
-    borderColor: COLORS.black,
-    height: 0,
-  },
   row: {
     flex: 1,
     justifyContent: 'space-around',

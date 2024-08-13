@@ -12,9 +12,10 @@ module.exports = {
   moduleNameMapper: {
     '\\.svg': '<rootDir>/__tests__/__mocks__/svg.js',
   },
-  testPathIgnorePatterns: ['<rootDir>/__tests__/__mocks__/svg.js'],
+  testPathIgnorePatterns: ['<rootDir>/__tests__/*'],
   verbose: true,
   collectCoverage: true,
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
   coverageDirectory: 'coverage',
+  setupFiles: ['<rootDir>/__tests__/jestSetupFile.js'],
 } as Config;
