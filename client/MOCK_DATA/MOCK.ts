@@ -32,6 +32,13 @@ export const DATA = [
     pokemonSvg: 'https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/4.gif?raw=true',
   },
   {
+    pokemonName: 'Charmander',
+    pokemonNumber: '#004',
+    pokemonTypes: [PokemonTypes.Fire],
+    boxBg: COLORS.fire,
+    pokemonSvg: 'https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/4.gif?raw=true',
+  },
+  {
     pokemonName: 'Charmeleon',
     pokemonNumber: '#005',
     pokemonTypes: [PokemonTypes.Fire],
