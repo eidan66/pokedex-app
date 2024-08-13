@@ -17,6 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: List Directory Structure for Debugging
+        run: ls -R
+        # This step helps verify where the client directory is located
+
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
@@ -33,15 +38,17 @@ jobs:
 
       - name: Install Dependencies
         run: cd client && yarn --immutable-cache
+        # Verify that the 'client' directory exists and is correct
 
   run_tests_client:
     runs-on: ubuntu-latest
     needs: install_dependencies_client
     steps:
-     - name: List Directory Structure
-       run: ls -R
-     - name: Run Client Tests
-       working-directory: client
-       run: |
-        cd client
-        yarn test
+      - name: List Directory Structure
+        run: ls -R
+        working-directory: client
+        # Adjust this based on the actual location of the 'client' directory
+
+      - name: Run Client Tests
+        working-directory: client
+        run: yarn test
