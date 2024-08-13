@@ -41,8 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: install_dependencies_client
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
       - name: Check PWD
-        run: cd client && pwd
+        run:  pwd
       - name: Run Client Tests
         run: cd client && yarn test
