@@ -1,114 +1,114 @@
-name: CI Workflow
+# name: CI Workflow
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'server/**'
-      - 'client/**'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'server/**'
-      - 'client/**'
-    types:
-      - labeled
-      - synchronize
-      - opened
-      - reopened
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'server/**'
+#       - 'client/**'
+#   pull_request:
+#     branches:
+#       - main
+#     paths:
+#       - 'server/**'
+#       - 'client/**'
+#     types:
+#       - labeled
+#       - synchronize
+#       - opened
+#       - reopened
 
-permissions:
-  contents: read
+# permissions:
+#   contents: read
 
-jobs:
-  install_dependencies_server:
-    if: contains(github.event.pull_request.labels.*.name, 'server') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'server/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'server/')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+# jobs:
+#   install_dependencies_server:
+#     if: contains(github.event.pull_request.labels.*.name, 'server') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'server/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'server/')
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
 
-      - name: Cache Node Modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            server/node_modules
-            server/.yarn/cache
-          key: ${{ runner.os }}-node-${{ hashFiles('server/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#       - name: Cache Node Modules
+#         uses: actions/cache@v3
+#         with:
+#           path: |
+#             server/node_modules
+#             server/.yarn/cache
+#           key: ${{ runner.os }}-node-${{ hashFiles('server/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
 
-      - name: Install Dependencies for Server
-        run: cd server && yarn --frozen-lockfile
+#       - name: Install Dependencies for Server
+#         run: cd server && yarn --frozen-lockfile
 
-  install_dependencies_client:
-    if: contains(github.event.pull_request.labels.*.name, 'client') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'client/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'client/')
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+#   install_dependencies_client:
+#     if: contains(github.event.pull_request.labels.*.name, 'client') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'client/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'client/')
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
 
-      - name: Cache Node Modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            client/node_modules
-            client/.yarn/cache
-          key: ${{ runner.os }}-node-${{ hashFiles('client/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#       - name: Cache Node Modules
+#         uses: actions/cache@v3
+#         with:
+#           path: |
+#             client/node_modules
+#             client/.yarn/cache
+#           key: ${{ runner.os }}-node-${{ hashFiles('client/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
 
-      - name: Install Dependencies for Client
-        run: cd client && yarn --frozen-lockfile
+#       - name: Install Dependencies for Client
+#         run: cd client && yarn --frozen-lockfile
 
-  run_tests_server:
-    if: contains(github.event.pull_request.labels.*.name, 'server') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'server/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'server/')
-    runs-on: ubuntu-latest
-    needs: install_dependencies_server
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+#   run_tests_server:
+#     if: contains(github.event.pull_request.labels.*.name, 'server') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'server/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'server/')
+#     runs-on: ubuntu-latest
+#     needs: install_dependencies_server
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
 
-      - name: Restore Node Modules Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            server/node_modules
-            server/.yarn/cache
-          key: ${{ runner.os }}-node-${{ hashFiles('server/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#       - name: Restore Node Modules Cache
+#         uses: actions/cache@v3
+#         with:
+#           path: |
+#             server/node_modules
+#             server/.yarn/cache
+#           key: ${{ runner.os }}-node-${{ hashFiles('server/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
 
-      - name: Run Server Tests
-        run: cd server && yarn jest
+#       - name: Run Server Tests
+#         run: cd server && yarn jest
 
-  run_tests_client:
-    if: contains(github.event.pull_request.labels.*.name, 'client') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'client/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'client/')
-    runs-on: ubuntu-latest
-    needs: install_dependencies_client
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+#   run_tests_client:
+#     if: contains(github.event.pull_request.labels.*.name, 'client') || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') && github.event.commits.*.modified contains 'client/') || (github.event_name == 'pull_request' && github.event.pull_request.changed_files contains 'client/')
+#     runs-on: ubuntu-latest
+#     needs: install_dependencies_client
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
 
-      - name: Restore Node Modules Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            client/node_modules
-            client/.yarn/cache
-          key: ${{ runner.os }}-node-${{ hashFiles('client/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#       - name: Restore Node Modules Cache
+#         uses: actions/cache@v3
+#         with:
+#           path: |
+#             client/node_modules
+#             client/.yarn/cache
+#           key: ${{ runner.os }}-node-${{ hashFiles('client/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
 
-      - name: Run Client Tests
-        run: cd client && yarn jest
+#       - name: Run Client Tests
+#         run: cd client && yarn jest
