@@ -44,4 +44,4 @@ jobs:
       - name: Check PWD
         run: pwd
       - name: Run Client Tests
-        run: cd ./client && yarn test
+        run: yarn test
