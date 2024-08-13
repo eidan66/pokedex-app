@@ -6,6 +6,39 @@ import { Pokemon, PokemonClient } from 'pokenode-ts';
 import COLORS from './colors.js';
 import { APIPageResponse, APIPokemon, APIPokemonType } from './responseTypes.js';
 
+function pad(num: number) {
+    if (num > 99) {
+        return `#${num}`
+    }
+
+    if (num > 9) {
+        return `#0${num}`
+    }
+
+    return `#00${num}`
+}
+
+function pokeAPIPokemonToAPIPokemon(pokeApiPokemon: Pokemon): APIPokemon {
+    return {
+        id: pokeApiPokemon.id,
+        name: pokeApiPokemon.name,
+        number: pad(pokeApiPokemon.id),
+        types: pokeApiPokemon.types.map(({type:{name}})=> mapToAPIPokemonType(name)),
+        boxBg: COLORS[mapToAPIPokemonType(pokeApiPokemon.types[0].type.name)],
+        svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`
+    };
+}
+
+function mapToAPIPokemonType(type: string): APIPokemonType {
+
+    const apiType = Object.keys(APIPokemonType).find((s) => s.toLowerCase() === type.toLowerCase());    
+
+    if (!apiType) {
+        return APIPokemonType.Unknown;
+    }
+    
+    return apiType as APIPokemonType;
+}
 
 const server = http.createServer(async (req, res) => {
     const api = new PokemonClient();
@@ -69,36 +102,3 @@ const server = http.createServer(async (req, res) => {
 server.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
-
-function pad(num: number) {
-    if (num > 99) {
-        return `#${num}`
-    }
-
-    if (num > 9) {
-        return `#0${num}`
-    }
-
-    return `#00${num}`
-}
-
-function pokeAPIPokemonToAPIPokemon(pokeApiPokemon: Pokemon): APIPokemon {
-    return {
-        pokemonName: pokeApiPokemon.name,
-        pokemonNumber: pad(pokeApiPokemon.id),
-        pokemonTypes: pokeApiPokemon.types.map(({type:{name}})=> mapToAPIPokemonType(name)),
-        boxBg: COLORS[mapToAPIPokemonType(pokeApiPokemon.types[0].type.name)],
-        pokemonSvg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`
-    };
-}
-
-function mapToAPIPokemonType(type: string): APIPokemonType {
-
-    const apiType = Object.keys(APIPokemonType).find((s) => s.toLowerCase() === type.toLowerCase());    
-
-    if (!apiType) {
-        return APIPokemonType.Unknown;
-    }
-    
-    return apiType as APIPokemonType;
-}

@@ -30,9 +30,10 @@ export enum APIPokemonType {
 
 
 export interface APIPokemon {
-    pokemonName: string, 
-    pokemonNumber: string, 
-    pokemonTypes: APIPokemonType[], 
+    id: number,
+    name: string, 
+    number: string, 
+    types: APIPokemonType[], 
     boxBg: string, 
-    pokemonSvg: string
+    svg: string
 }
