@@ -6,6 +6,9 @@ import configureStore from 'redux-mock-store';
 import { Homepage } from './Homepage';
 import { CARDS_DATA } from '../../components/Card/data';
 import { setPokemons } from '../../redux/slices/pokemonSlice';
+import { createNavigationPropsMock } from '../../../__tests__/navigationMocks/createNavigationPropsMock';
+import { RootStackParamList } from '../../navigation/routes';
+import { RootStackTypes } from '../../navigation/routes/types';
 
 const mockStore = configureStore([]);
 
@@ -15,11 +18,7 @@ const store = mockStore({
   },
 });
 
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => ({
-    navigate: jest.fn(),
-  }),
-}));
+const navigationMockProps = createNavigationPropsMock<RootStackParamList, RootStackTypes.Homepage>();
 
 describe('Homepage', () => {
   beforeEach(() => {
@@ -29,7 +28,7 @@ describe('Homepage', () => {
   it('renders the SearchBar component', () => {
     render(
       <Provider store={store}>
-        <Homepage />
+        <Homepage {...navigationMockProps} />
       </Provider>,
     );
 
@@ -39,7 +38,7 @@ describe('Homepage', () => {
   it('dispatches fetchPokemons action on mount', () => {
     render(
       <Provider store={store}>
-        <Homepage />
+        <Homepage {...navigationMockProps} />
       </Provider>,
     );
 
@@ -50,7 +49,7 @@ describe('Homepage', () => {
   it('renders cards with correct data', () => {
     render(
       <Provider store={store}>
-        <Homepage />
+        <Homepage {...navigationMockProps} />
       </Provider>,
     );
 
@@ -65,7 +64,7 @@ describe('Homepage', () => {
   it.skip('calls onCardPress when a card is pressed', () => {
     render(
       <Provider store={store}>
-        <Homepage />
+        <Homepage {...navigationMockProps} />
       </Provider>,
     );
 

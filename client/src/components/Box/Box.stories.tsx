@@ -28,5 +28,8 @@ export const Basic: Story = {
     imageStyle: {
       bottom: 60,
     },
+    onPokemonPress: () => {
+      console.log('Triggered click');
+    },
   },
 };

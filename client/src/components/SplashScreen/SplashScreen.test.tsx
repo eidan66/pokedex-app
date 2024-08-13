@@ -1,41 +1,41 @@
-import { act, render } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import React from 'react';
+import { SplashScreen } from './SplashScreen';
+import { createNavigationPropsMock } from '../../../__tests__/navigationMocks/createNavigationPropsMock';
+import { RootStackParamList } from '../../navigation/routes';
+import { RootStackTypes } from '../../navigation/routes/types';
 
-import SplashScreen from './SplashScreen';
+jest.useFakeTimers();
 
-jest.mock('lottie-react-native', () => 'LottieView');
+const navigationMockProps = createNavigationPropsMock<RootStackParamList, RootStackTypes.SplashScreen>();
 
 describe('SplashScreen', () => {
-  jest.useFakeTimers();
-
   it('should render correctly', () => {
-    const onFinish = jest.fn();
-    const { getByTestId } = render(<SplashScreen onFinish={onFinish} />);
+    const { getByTestId } = render(<SplashScreen {...navigationMockProps} />);
 
     expect(getByTestId('splash-container')).toBeTruthy();
     expect(getByTestId('splash-logo')).toBeTruthy();
     expect(getByTestId('splash-lottie')).toBeTruthy();
   });
 
-  it('should call onFinish after the timeout', () => {
-    const onFinish = jest.fn();
-    render(<SplashScreen onFinish={onFinish} />);
+  it('should call navigation.replace after the timeout', async () => {
+    render(<SplashScreen {...navigationMockProps} />);
 
-    act(() => {
-      jest.runAllTimers();
+    await waitFor(() => {
+      jest.runAllTimers(); // Fast-forward the timers
     });
 
-    expect(onFinish).toHaveBeenCalledTimes(1);
+    expect(navigationMockProps.navigation.replace).toHaveBeenCalledWith(RootStackTypes.Homepage);
   });
 
-  it('should call onFinish when Lottie animation finishes', () => {
-    const onFinish = jest.fn();
-    const { getByTestId } = render(<SplashScreen onFinish={onFinish} />);
+  it('should call navigation.replace when Lottie animation finishes', async () => {
+    const { getByTestId } = render(<SplashScreen {...navigationMockProps} />);
 
-    act(() => {
-      getByTestId('splash-lottie').props.onAnimationFinish();
+    // Simulate the onAnimationFinish event
+    await waitFor(() => {
+      fireEvent(getByTestId('splash-lottie'), 'onAnimationFinish');
     });
 
-    expect(onFinish).toHaveBeenCalledTimes(1);
+    expect(navigationMockProps.navigation.replace).toHaveBeenCalledWith(RootStackTypes.Homepage);
   });
 });
