@@ -41,5 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install_dependencies_client
     steps:
+      - name: Check ls
+        run: ls
       - name: Run Client Tests
-        run: cd client && yarn jest
+        run: yarn test
