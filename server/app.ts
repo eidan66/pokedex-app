@@ -3,8 +3,8 @@ import * as querystring from 'querystring';
 import * as url from 'url';
 import { Pokemon, PokemonClient } from 'pokenode-ts';
 
-import COLORS from './colors';
-import { APIPageResponse, APIPokemon, APIPokemonType } from './responseTypes';
+import COLORS from './colors.js';
+import { APIPageResponse, APIPokemon, APIPokemonType } from './responseTypes.js';
 
 
 const server = http.createServer(async (req, res) => {
