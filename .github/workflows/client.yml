@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - '<rootDir>/client/**'
+      - 'client/**'
   pull_request:
     branches:
       - main
     paths:
-      - '<rootDir>/client/**'
+      - 'client/**'
 
 permissions:
   contents: read
@@ -28,9 +28,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            <rootDir>/client/node_modules
-            <rootDir>/client/.yarn/cache
-          key: ${{ runner.os }}-node-${{ hashFiles('<rootDir>/client/yarn.lock') }}
+            client/node_modules
+            client/.yarn/cache
+          key: ${{ runner.os }}-node-${{ hashFiles('client/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
