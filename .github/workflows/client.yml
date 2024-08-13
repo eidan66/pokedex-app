@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        run: cd client && yarn --frozen-lockfile
+        run: cd client && yarn --immutable-cache
 
   run_tests_client:
     runs-on: ubuntu-latest
@@ -44,4 +44,4 @@ jobs:
       - name: Check PWD
         run: pwd
       - name: Run Client Tests
-        run: cd client && yarn test
+        run: cd ./client && yarn test
