@@ -29,12 +29,12 @@ const server = http.createServer(async (req, res) => {
         const parsed = url.parse(req.url);
         if (parsed.query !== null) {
             const query  = querystring.parse(parsed.query);
-            if (query.offset) {
-                offset = parseInt(query.offset as string);
+            if (typeof query.offset === 'string' && query.offset) {
+                offset = parseInt(query.offset);
             }
 
-            if (query.limit) {
-                limit = parseInt(query.limit as string);
+            if (typeof query.limit === 'string' && query.limit) {
+                limit = parseInt(query.limit);
             }
         }
         
@@ -66,7 +66,7 @@ const server = http.createServer(async (req, res) => {
     res.end();
 });
 
-server.listen(3000, () => {
+server.listen(3001, () => {
     console.log('Server is running on port 3000');
 });
 
