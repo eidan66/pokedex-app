@@ -5,14 +5,6 @@ export interface APIPageResponse<T> {
     results: T[]
 }
 
-export interface APIPokemon {
-    pokemonName: string, 
-    pokemonNumber: string, 
-    pokemonTypes: APIPokemonType[], 
-    boxBg: string, 
-    pokemonSvg: string
-}
-
 export enum APIPokemonType {
     Bug = 'Bug',
     Dark = 'Dark',
@@ -35,3 +27,12 @@ export enum APIPokemonType {
 
     Unknown = 'Unknown'
   }
+
+
+export interface APIPokemon {
+    pokemonName: string, 
+    pokemonNumber: string, 
+    pokemonTypes: APIPokemonType[], 
+    boxBg: string, 
+    pokemonSvg: string
+}
