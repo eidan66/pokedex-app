@@ -41,7 +41,7 @@ export enum APIPokemonType {
     Rock: '#B6A136',
     Steel: '#B7B7CE',
     Water: '#6390F0',
-  } as  { [key in APIPokemonType]: string };
+  } as  Record<APIPokemonType,string>;
 
 export interface APIPokemon {
     id: number,
