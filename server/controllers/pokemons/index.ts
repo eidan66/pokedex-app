@@ -43,8 +43,8 @@ async function getPokemonsPage(offset: number, limit: number): Promise<APIPageRe
 
     const apiPokemonsPage: APIPageResponse<APIPokemon> = {
         count: pokemonsPage.count,
-        next: pokemonsPage.next?.replace('https://pokeapi.co/api/v2/pokemon', 'localhost:3000/pokemons'),
-        previous: pokemonsPage.previous?.replace('https://pokeapi.co/api/v2/pokemon', 'localhost:3000/pokemons'),
+        next: pokemonsPage.next?.replace('https://pokeapi.co/api/v2/pokemon', 'http://localhost:3000/pokemons'),
+        previous: pokemonsPage.previous?.replace('https://pokeapi.co/api/v2/pokemon', 'http://localhost:3000/pokemons'),
         results: await Promise.all(pokemonsPage.results.map(async pokemon => {
             const item = await api.getPokemonByName(pokemon.name);
     
