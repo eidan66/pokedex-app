@@ -12,10 +12,8 @@ routes.route('/:name')
 
 routes.route('/')
 .get(async (req, res) => {
-    const defaultOffset = 0;
-    const defaultLimit = 20;
-    let offset = defaultOffset;
-    let limit = defaultLimit;
+    let offset = 0
+    let limit = 20
 
 
     if (req.query.offset && typeof req.query.offset === 'string') {
