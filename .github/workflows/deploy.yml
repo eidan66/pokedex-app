@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Debug Secret
+      run: echo ${{ secrets }}
+
+    - name: Debug Secret.RENDER_DEPLOY_HOOK
+      run: echo ${{ secrets.RENDER_DEPLOY_HOOK }}
+
     - name: Trigger Render Deploy
       run: |
         curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
