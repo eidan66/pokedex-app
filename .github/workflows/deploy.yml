@@ -11,14 +11,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: Deploy
 
     steps:
     - name: Debug Secret
-      run: echo ${{ secrets.Deploy }}
+      run: echo ${{ secrets }}
 
-    - name: Debug Secret.Deploy.RENDER_DEPLOY_HOOK
-      run: echo ${{ secrets.Deploy.RENDER_DEPLOY_HOOK }}
+    - name: Debug Secret.RENDER_DEPLOY_HOOK
+      run: echo ${{ secrets.RENDER_DEPLOY_HOOK }}
 
     - name: Trigger Render Deploy
       run: |
-        curl -X POST ${{ secrets.Deploy.RENDER_DEPLOY_HOOK }}
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}

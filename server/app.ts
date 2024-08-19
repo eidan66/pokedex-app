@@ -8,7 +8,7 @@ import { APIPageResponse, APIPokemon, APIPokemonType } from './responseTypes.js'
 
 function pad(num: number) {
   if (num > 99) {
-    return `#${num}`;
+    return ` #${num}`;
   }
 
   if (num > 9) {
