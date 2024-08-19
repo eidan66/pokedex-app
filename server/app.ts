@@ -15,7 +15,7 @@ function pad(num: number) {
     return `#0${num}`;
   }
 
-  return ` #00${num}`;
+  return `#00${num}`;
 }
 
 function pokeAPIPokemonToAPIPokemon(pokeApiPokemon: Pokemon): APIPokemon {
