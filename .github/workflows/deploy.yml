@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - integrate-render-server-host-to-ci-cd
     paths:
       - server/**
 
