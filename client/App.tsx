@@ -1,29 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-
-import { Providers } from './src/providers';
 
 import { COLORS } from './src/constants/colors';
 import { RootNavigator } from './src/navigation/routes';
+import { Providers } from './src/providers';
 
 function App() {
-  const fetchData = async () => {
-    try {
-      const res = await fetch('http://localhost:3000');
-      if (!res.ok) {
-        throw new Error(`Res error -> ${res.status}`);
-      }
-
-      console.log('[TEMP] log -  fetchData  res:', res);
-    } catch (error) {
-      console.log('[TEMP] log -  fetchData  error:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <Providers>
       <SafeAreaView style={styles.container}>
@@ -42,8 +24,9 @@ const styles = StyleSheet.create({
 
 let AppEntryPoint = App;
 
-// @ts-ignore
+// @ts-expect-error storybook
 if (process.env.STORYBOOK_ENABLED) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   AppEntryPoint = require('./.ondevice').default;
 }
 

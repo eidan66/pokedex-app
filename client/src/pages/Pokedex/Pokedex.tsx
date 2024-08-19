@@ -1,45 +1,65 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
-import { DATA } from '../../../MOCK_DATA/MOCK';
-import { Box } from '../../components/Box';
 import { PokedexPokemon } from './types';
-import { Cards } from '../../components/Card/data';
+import { Box } from '../../components/Box';
 import { BoxSkeletonList } from '../../components/Box/Skeleton/List/BoxSkeletonList';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Cards } from '../../components/Card/data';
 import { RootStackParamList } from '../../navigation/routes';
+import { FetchResponse, PokedexResponse } from '../../types';
+import { ServerUrl } from '../../utils/serverUrl';
 
 type PokedexScreenProps = NativeStackScreenProps<RootStackParamList, Cards.Pokedex>;
 
 export const Pokedex: FunctionComponent<PokedexScreenProps> = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pokemons, setPokemons] = useState<PokedexResponse[]>([]);
+  const [nextPage, setNextPage] = useState<string>(`${ServerUrl()}/pokemons`);
 
-  const onPokemonPress = (pokemon: /*Check maybe to pass the pokemon ID*/ Cards) => {
-    // navigation.navigate(navigateTo);
-  };
+  const fetchPokemons = async () => {
+    try {
+      if (isLoading) {
+        return;
+      }
 
-  const renderPokemon = (pokemon: PokedexPokemon) => {
-    return <Box onPokemonPress={onPokemonPress} {...pokemon} />;
+      setIsLoading(true);
+      const response = await fetch(nextPage);
+      const jsonData = (await response.json()) as FetchResponse;
+
+      setPokemons((prevData) => [...prevData, ...jsonData.results]);
+
+      setNextPage(__DEV__ ? `http://${jsonData.next}` : jsonData.next);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Failed fetch Pokemons:', error);
+    }
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
+    fetchPokemons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onPokemonPress = (_pokemonId: number) => {
+    // navigation.navigate(navigateTo);
+  };
+
+  const renderPokemon = (pokemon: PokedexPokemon) => <Box onPokemonPress={onPokemonPress} {...pokemon} />;
+
   return (
     <View>
-      {isLoading ? (
-        <BoxSkeletonList />
-      ) : (
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => renderPokemon(item)}
-          keyExtractor={(item, index) => `${item}-${index.toString()}`}
-          numColumns={2}
-          columnWrapperStyle={styles.row}
-        />
-      )}
+      <FlatList
+        data={pokemons}
+        renderItem={({ item }) => renderPokemon(item)}
+        keyExtractor={(item, index) => `${item}-${index.toString()}`}
+        numColumns={2}
+        onEndReached={fetchPokemons}
+        onEndReachedThreshold={3}
+        columnWrapperStyle={styles.row}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListFooterComponent={() => <View>{isLoading && <BoxSkeletonList />}</View>}
+      />
     </View>
   );
 };

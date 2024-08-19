@@ -1,5 +1,5 @@
 {
   "name": "pokedexApp",
   "displayName": "pokedexApp",
-  "jsEngine": "jsi"
+  "jsEngine": "jsc"
 }
