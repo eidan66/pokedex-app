@@ -1,0 +1,19 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+      - integrate-render-server-host-to-ci-cd
+    paths:
+      - server/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Deploy
+
+    steps:
+    - name: Trigger Render Deploy
+      run: |
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
