@@ -15,14 +15,14 @@ const mapToPokemonTypeModel = (type: string): PokemonTypeModel => {
   return apiType as PokemonTypeModel;
 };
 
-const mapPokeAPIPokemonToPokemonModel = (pokeApiPokemon: Pokemon): PokemonModel => {
+const mapPokeAPIPokemonToPokemonModel = ({ id, name, types }: Pokemon): PokemonModel => {
   return {
-    id: pokeApiPokemon.id,
-    name: pokeApiPokemon.name,
-    number: Utils.pad(pokeApiPokemon.id),
-    types: pokeApiPokemon.types.map(({ type: { name } }) => mapToPokemonTypeModel(name)),
-    boxBg: COLORS[mapToPokemonTypeModel(pokeApiPokemon.types[0].type.name)],
-    svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`,
+    id,
+    name,
+    number: Utils.pad(id),
+    types: types.map(({ type: { name } }) => mapToPokemonTypeModel(name)),
+    boxBg: COLORS[mapToPokemonTypeModel(types[0].type.name)],
+    svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${id}.gif?raw=true`,
   };
 };
 

@@ -13,11 +13,11 @@ routes.route('/').get(async (req, res) => {
   let offset = 0;
   let limit = 20;
 
-  if (req.query.offset && typeof req.query.offset === 'string') {
+  if (typeof req?.query?.offset === 'string') {
     offset = parseInt(req.query.offset);
   }
 
-  if (req.query.limit && typeof req.query.limit === 'string') {
+  if (req?.query?.limit === 'string') {
     limit = parseInt(req.query.limit);
   }
 
