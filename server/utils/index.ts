@@ -1,4 +1,4 @@
-const pad = (num: number) => {
+export const pad = (num: number) => {
   if (num > 99) {
     return `#${num}`;
   }
@@ -9,5 +9,3 @@ const pad = (num: number) => {
 
   return `#00${num}`;
 };
-
-export default { pad };
