@@ -15,16 +15,14 @@ const mapToPokemonTypeModel = (type: string): PokemonTypeModel => {
   return apiType as PokemonTypeModel;
 };
 
-const mapPokeAPIPokemonToPokemonModel = ({ id, name, types }: Pokemon): PokemonModel => {
-  return {
+const mapPokeAPIPokemonToPokemonModel = ({ id, name, types }: Pokemon): PokemonModel => ({
     id,
     name,
     number: pad(id),
     types: types.map(({ type: { name } }) => mapToPokemonTypeModel(name)),
     boxBg: COLORS[mapToPokemonTypeModel(types[0].type.name)],
     svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${id}.gif?raw=true`,
-  };
-};
+  });
 
 const getPokemonsPage = async (offset: number, limit: number): Promise<APIPageResponse<PokemonModel>> => {
   const pokemonsPage = await api.listPokemons(offset, limit);
