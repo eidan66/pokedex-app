@@ -1,4 +1,4 @@
-export enum APIPokemonType {
+export enum PokemonTypeModel {
     Bug = 'Bug',
     Dark = 'Dark',
     Dragon = 'Dragon',
@@ -41,13 +41,13 @@ export enum APIPokemonType {
     Rock: '#B6A136',
     Steel: '#B7B7CE',
     Water: '#6390F0',
-  } as  Record<APIPokemonType,string>;
+  } as  Record<PokemonTypeModel,string>;
 
-export interface APIPokemon {
+export interface PokemonModel {
     id: number,
     name: string, 
     number: string, 
-    types: APIPokemonType[], 
+    types: PokemonTypeModel[], 
     boxBg: string, 
     svg: string
 }

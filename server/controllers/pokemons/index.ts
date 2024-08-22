@@ -1,65 +1,55 @@
 import { Pokemon, PokemonClient } from 'pokenode-ts';
-import { APIPokemon, APIPokemonType, COLORS } from '../../models/pokemon/index.js';
+import { PokemonModel, PokemonTypeModel, COLORS } from '../../models/pokemon/index.js';
 import { APIPageResponse } from '../../models/response/index.js';
+import Utils from '../../utils/index.js';
 
 const api = new PokemonClient();
 
-function pad(num: number) {
-    if (num > 99) {
-        return `#${num}`
-    }
+const mapToPokemonTypeModel = (type: string): PokemonTypeModel => {
+  const apiType = Object.keys(PokemonTypeModel).find((s) => s.toLowerCase() === type.toLowerCase());
 
-    if (num > 9) {
-        return `#0${num}`
-    }
+  if (!apiType) {
+    return PokemonTypeModel.Unknown;
+  }
 
-    return `#00${num}`
-}
+  return apiType as PokemonTypeModel;
+};
 
-function mapToAPIPokemonType(type: string): APIPokemonType {
+const mapPokeAPIPokemonToPokemonModel = (pokeApiPokemon: Pokemon): PokemonModel => {
+  return {
+    id: pokeApiPokemon.id,
+    name: pokeApiPokemon.name,
+    number: Utils.pad(pokeApiPokemon.id),
+    types: pokeApiPokemon.types.map(({ type: { name } }) => mapToPokemonTypeModel(name)),
+    boxBg: COLORS[mapToPokemonTypeModel(pokeApiPokemon.types[0].type.name)],
+    svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`,
+  };
+};
 
-    const apiType = Object.keys(APIPokemonType).find((s) => s.toLowerCase() === type.toLowerCase());    
+const getPokemonsPage = async (offset: number, limit: number): Promise<APIPageResponse<PokemonModel>> => {
+  const pokemonsPage = await api.listPokemons(offset, limit);
 
-    if (!apiType) {
-        return APIPokemonType.Unknown;
-    }
-    
-    return apiType as APIPokemonType;
-}
+  const apiPokemonsPage: APIPageResponse<PokemonModel> = {
+    count: pokemonsPage.count,
+    next: pokemonsPage.next?.replace('https://pokeapi.co/api/v2/pokemon', 'http://localhost:3000/pokemons'),
+    previous: pokemonsPage.previous?.replace('https://pokeapi.co/api/v2/pokemon', 'http://localhost:3000/pokemons'),
+    results: await Promise.all(
+      pokemonsPage.results.map(async ({ name }) => {
+        const item = await api.getPokemonByName(name);
 
-function pokeAPIPokemonToAPIPokemon(pokeApiPokemon: Pokemon): APIPokemon {
-    return {
-        id: pokeApiPokemon.id,
-        name: pokeApiPokemon.name,
-        number: pad(pokeApiPokemon.id),
-        types: pokeApiPokemon.types.map(({type:{name}})=> mapToAPIPokemonType(name)),
-        boxBg: COLORS[mapToAPIPokemonType(pokeApiPokemon.types[0].type.name)],
-        svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${pokeApiPokemon.id}.gif?raw=true`
-    };
-}
+        return mapPokeAPIPokemonToPokemonModel(item);
+      }),
+    ),
+  };
 
-async function getPokemonsPage(offset: number, limit: number): Promise<APIPageResponse<APIPokemon>> {
-    const pokemonsPage = await api.listPokemons(offset, limit);
+  return apiPokemonsPage;
+};
 
-    const apiPokemonsPage: APIPageResponse<APIPokemon> = {
-        count: pokemonsPage.count,
-        next: pokemonsPage.next?.replace('https://pokeapi.co/api/v2/pokemon', 'http://localhost:3000/pokemons'),
-        previous: pokemonsPage.previous?.replace('https://pokeapi.co/api/v2/pokemon', 'http://localhost:3000/pokemons'),
-        results: await Promise.all(pokemonsPage.results.map(async ({name}) => {
-            const item = await api.getPokemonByName(pokemon.name);
-    
-            return pokeAPIPokemonToAPIPokemon(item);
-        }))
-    }
+const getPokemonByName = async (name: string): Promise<PokemonModel> => {
+  const pokemon = await api.getPokemonByName(name);
+  const apiPokemon = mapPokeAPIPokemonToPokemonModel(pokemon);
 
-    return apiPokemonsPage;
-}
-
-async function getPokemonByName(name: string): Promise<APIPokemon> {
-    const pokemon = await api.getPokemonByName(name);
-    const apiPokemon = pokeAPIPokemonToAPIPokemon(pokemon);
-
-    return apiPokemon;
-}
+  return apiPokemon;
+};
 
 export default { getPokemonsPage, getPokemonByName };
