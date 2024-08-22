@@ -1,7 +1,7 @@
 import { Pokemon, PokemonClient } from 'pokenode-ts';
 import { PokemonModel, PokemonTypeModel, COLORS } from '../../models/pokemon/index.js';
 import { APIPageResponse } from '../../models/response/index.js';
-import Utils from '../../utils/index.js';
+import { pad } from '../../utils/index.js';
 
 const api = new PokemonClient();
 
@@ -19,7 +19,7 @@ const mapPokeAPIPokemonToPokemonModel = ({ id, name, types }: Pokemon): PokemonM
   return {
     id,
     name,
-    number: Utils.pad(id),
+    number: pad(id),
     types: types.map(({ type: { name } }) => mapToPokemonTypeModel(name)),
     boxBg: COLORS[mapToPokemonTypeModel(types[0].type.name)],
     svg: `https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/${id}.gif?raw=true`,
