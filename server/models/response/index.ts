@@ -1,7 +1,7 @@
 export interface APIPageResponse<T> {
     count: number,
-    next:string | null | undefined,
-    previous: string | null | undefined, 
+    next?:string | null,
+    previous?: string | null, 
     results: T[]
 }
 
