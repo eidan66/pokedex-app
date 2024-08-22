@@ -1,13 +1,8 @@
 import { ImageStyle, StyleProp } from 'react-native';
 
-import { PokemonTypes } from '../../../types';
+import { PokedexResponse } from '../../../types';
 
-export interface PokedexPokemon {
-  pokemonName: string;
-  pokemonNumber: string;
-  pokemonTypes: PokemonTypes[];
-  boxBg: string;
-  pokemonSvg: string;
+export interface PokedexPokemon extends PokedexResponse {
   size?: { width?: number; height?: number };
   imageStyle?: StyleProp<ImageStyle>;
 }

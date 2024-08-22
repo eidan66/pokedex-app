@@ -4,21 +4,22 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PokeballSvg from '../../../assets/svg/pokeballSvg.svg';
 import { COLORS } from '../../constants/colors';
 import { Fonts } from '../../constants/fonts';
+import { PokedexPokemon } from '../../pages/Pokedex/types';
 import { PokemonTypes } from '../../types';
 import { capitalizeFirstLetter } from '../../utils/capitalize';
 import { TypeBox } from '../TypeBox';
-import { PokedexPokemon } from '../../pages/Pokedex/types';
 
 interface BoxProps extends PokedexPokemon {
-  onPokemonPress: (...args: any) => void;
+  onPokemonPress: (id: number) => void;
 }
 
 export const Box: FunctionComponent<BoxProps> = ({
   boxBg = COLORS.normal,
-  pokemonSvg,
-  pokemonName,
-  pokemonNumber,
-  pokemonTypes,
+  svg,
+  name,
+  number,
+  id,
+  types,
   size,
   imageStyle = {},
   onPokemonPress,
@@ -29,17 +30,17 @@ export const Box: FunctionComponent<BoxProps> = ({
     </View>
   );
 
-  const hasTwoTypes = pokemonTypes?.length === 2;
+  const hasTwoTypes = types?.length === 2;
 
   return (
-    <TouchableOpacity onPressIn={() => onPokemonPress()} testID={`${pokemonName}-${pokemonNumber}`}>
+    <TouchableOpacity onPressIn={() => onPokemonPress(id)} testID={`${name}-${number}`}>
       <View style={[styles.container, { backgroundColor: `${boxBg}${COLORS['0.8']}` }]}>
         <View>
           <View style={styles.headerContainer}>
-            <Text style={styles.name}>{capitalizeFirstLetter(pokemonName)}</Text>
-            <Text style={styles.pokemonNumber}>{pokemonNumber}</Text>
+            <Text style={styles.name}>{capitalizeFirstLetter(name)}</Text>
+            <Text style={styles.pokemonNumber}>{number}</Text>
           </View>
-          <View style={styles.types}>{pokemonTypes.map((pokemonType, index) => renderTypes(pokemonType, index))}</View>
+          <View style={styles.types}>{types.map((pokemonType, index) => renderTypes(pokemonType, index))}</View>
           <View style={styles.pokeImgContainer}>
             <PokeballSvg
               style={hasTwoTypes ? styles.pokeball : styles.singlePokeballType}
@@ -48,7 +49,7 @@ export const Box: FunctionComponent<BoxProps> = ({
             />
             <Image
               style={[hasTwoTypes ? styles.image : styles.singleImageType, imageStyle]}
-              source={{ uri: pokemonSvg }}
+              source={{ uri: svg }}
               resizeMode="contain"
               width={size?.width || 80}
               height={size?.height || 70}

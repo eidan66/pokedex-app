@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 
 import { RootStackTypes } from './types';
 import { Cards } from '../../components/Card/data';
