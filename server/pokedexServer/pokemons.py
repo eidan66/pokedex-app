@@ -1,9 +1,10 @@
 from django.http import JsonResponse
 
+from .models.response.APIPageResponse import APIPageResponse
 from .models.pokemon.Colors import Colors
 from .models.pokemon.PokemonModel import PokemonModel
 from .models.pokemon.PokemonTypeModel import PokemonTypeModel
-from .utils import pad
+from .utils import pad, paginate
 
 import pokebase as pb
 
@@ -21,13 +22,46 @@ def mapPokeAPIPokemonToPokemonModel(pokeAPIPokemon):
     return pokemonModel
 
 def getPokemonsPage(request):
-    offset = request.GET.get('offset', 0)
-    limit = request.GET.get('limit', 20)
+    offset = int(request.GET.get('offset', 0))
+    limit = int(request.GET.get('limit', 20))
     
     pokeAPIPokemons = pb.APIResourceList('pokemon')
+    count = pokeAPIPokemons.count
+    full_url = request.build_absolute_uri()[:-1]
     
     
-    return JsonResponse({'name': 'pikachu', 'o': offset, 'l': limit, 'num': pad(111), 'pokemons': pb.APIResourceList('pokemon').__dict__})
+    # if offset is 0 -> previous is  None
+    # if offset - limit >= 0 -> previous_offset = offset - limit; previous_limit = limit
+    # if offset - limit < 0 -> previous_limit = offset ; previous_offset = 0; 
+    previous = None
+    if (offset > 0):
+        
+        if (offset - limit < 0):
+            previous_offset = 0
+            previous_limit = offset
+        else:
+            previous_offset = offset - limit
+            previous_limit = limit
+        previous = f'{full_url}?offset={previous_offset}&limit={previous_limit}'
+    
+    # if offset + limit >= count -> next is  None
+    # if offset + limit < count -> next_offset = offset + limit; 
+    # if next_offset + limit < count next_limit = limit
+    # else next_limit = count - next_offset
+     
+    next = None
+    
+    if (offset + limit < count):
+        next_offset = offset + limit
+        if (next_offset + limit < count):
+            next_limit = limit
+        else:
+            next_limit = count - next_offset
+        next = f'{full_url}?offset={next_offset}&limit={next_limit}'
+    
+    results = paginate(list(pokeAPIPokemons.__iter__()), offset, limit)
+    responseData = APIPageResponse(pokeAPIPokemons.count, next, previous, results)
+    return JsonResponse(responseData.__dict__)
 
 
 
