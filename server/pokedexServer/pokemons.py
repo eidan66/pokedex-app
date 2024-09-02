@@ -25,6 +25,9 @@ def getPokemonsPage(request):
     offset = int(request.GET.get('offset', 0))
     limit = int(request.GET.get('limit', 20))
     
+    if (limit > 20):
+        limit = 20
+    
     pokeAPIPokemons = pb.APIResourceList('pokemon')
     count = pokeAPIPokemons.count
     full_url = request.build_absolute_uri()[:-1]
@@ -58,14 +61,16 @@ def getPokemonsPage(request):
         else:
             next_limit = count - next_offset
         next = f'{full_url}?offset={next_offset}&limit={next_limit}'
-    
-    results = paginate(list(pokeAPIPokemons.__iter__()), offset, limit)
+    pokeAPIPokemonsNamesPage = paginate(list(pokeAPIPokemons.names), offset, limit)
+    results = list(map(lambda name: fetchAndMapPokemon(name).__dict__, pokeAPIPokemonsNamesPage))
     responseData = APIPageResponse(pokeAPIPokemons.count, next, previous, results)
     return JsonResponse(responseData.__dict__)
 
 
-
-def getPokemon(request, name):
+def fetchAndMapPokemon(name):
     pokeAPIPokemon = pb.pokemon(name)
     pokemonModel = mapPokeAPIPokemonToPokemonModel(pokeAPIPokemon)
+    return pokemonModel
+def getPokemon(request, name):
+    pokemonModel = fetchAndMapPokemon(name)
     return JsonResponse(pokemonModel.__dict__)
