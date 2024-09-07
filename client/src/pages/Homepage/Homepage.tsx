@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '../../components/Card';
 import { CARDS_DATA, Cards } from '../../components/Card/data';
 import { SearchBar } from '../../components/SearchBar';
+import { SafeAreaView } from '../../hoc/SafeAreaView/SafeAreaView';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
 import { setPokemons } from '../../redux/slices/pokemonSlice';
@@ -40,7 +41,7 @@ export const Homepage: FunctionComponent<HomepageScreenProps> = ({ navigation })
   }, [pokemons]);
 
   return (
-    <>
+    <SafeAreaView>
       <View>
         <SearchBar />
       </View>
@@ -52,7 +53,7 @@ export const Homepage: FunctionComponent<HomepageScreenProps> = ({ navigation })
         columnWrapperStyle={styles.row}
         scrollEnabled={false}
       />
-    </>
+    </SafeAreaView>
   );
 };
 

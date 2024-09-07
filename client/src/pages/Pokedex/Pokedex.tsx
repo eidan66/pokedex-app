@@ -7,12 +7,13 @@ import { Box } from '../../components/Box';
 import { BoxSkeletonList } from '../../components/Box/Skeleton/List/BoxSkeletonList';
 import { Cards } from '../../components/Card/data';
 import { RootStackParamList } from '../../navigation/routes';
+import { RootStackTypes } from '../../navigation/routes/types';
 import { FetchResponse, PokedexResponse } from '../../types';
 import { ServerUrl } from '../../utils/serverUrl';
 
 type PokedexScreenProps = NativeStackScreenProps<RootStackParamList, Cards.Pokedex>;
 
-export const Pokedex: FunctionComponent<PokedexScreenProps> = () => {
+export const Pokedex: FunctionComponent<PokedexScreenProps> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pokemons, setPokemons] = useState<PokedexResponse[]>([]);
   const [nextPage, setNextPage] = useState<string>(`${ServerUrl()}/pokemons`);
@@ -41,8 +42,8 @@ export const Pokedex: FunctionComponent<PokedexScreenProps> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onPokemonPress = (_pokemonId: number) => {
-    // navigation.navigate(navigateTo);
+  const onPokemonPress = (pokemonId: number) => {
+    navigation.navigate(RootStackTypes.PokemonDetails, { pokemonId });
   };
 
   const renderPokemon = (pokemon: PokedexPokemon) => <Box onPokemonPress={onPokemonPress} {...pokemon} />;
