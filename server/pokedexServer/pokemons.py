@@ -13,12 +13,14 @@ def mapToPokemonTypeModel(pokeAPIPokemonType):
     return PokemonTypeModel(pokeAPIPokemonType.type.name)
 
 def mapPokeAPIPokemonToPokemonModel(pokeAPIPokemon):
-    pokemonModel = PokemonModel(pokeAPIPokemon.id,
-                                pokeAPIPokemon.name,
-                                pad(pokeAPIPokemon.id),
-                                list(map(mapToPokemonTypeModel, pokeAPIPokemon.types)),
-                                Colors[PokemonTypeModel(pokeAPIPokemon.types[0].type.name).value].value[0],
-                                f'https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/{str(id)}.gif?raw=true')
+    pokemonModel = PokemonModel(
+        pokeAPIPokemon.id,
+        pokeAPIPokemon.name,
+        pad(pokeAPIPokemon.id),
+        list(map(mapToPokemonTypeModel, pokeAPIPokemon.types)),
+        Colors[PokemonTypeModel(pokeAPIPokemon.types[0].type.name).value].value[0],
+        f'https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/{pokeAPIPokemon.id}.gif?raw=true'
+    )
     return pokemonModel
 
 def getPokemonsPage(request):
@@ -67,10 +69,10 @@ def getPokemonsPage(request):
     return JsonResponse(responseData.__dict__)
 
 
-def fetchAndMapPokemon(name):
-    pokeAPIPokemon = pb.pokemon(name)
+def fetchAndMapPokemon(id):
+    pokeAPIPokemon = pb.pokemon(id)
     pokemonModel = mapPokeAPIPokemonToPokemonModel(pokeAPIPokemon)
     return pokemonModel
-def getPokemon(request, name):
-    pokemonModel = fetchAndMapPokemon(name)
+def getPokemon(request, id):
+    pokemonModel = fetchAndMapPokemon(id)
     return JsonResponse(pokemonModel.__dict__)

@@ -22,5 +22,5 @@ from . import pokemons
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pokemons/', pokemons.getPokemonsPage),
-    path('pokemons/<str:name>', pokemons.getPokemon)
+    path('pokemons/<int:id>', pokemons.getPokemon),
 ]
