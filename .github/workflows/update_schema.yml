@@ -37,12 +37,13 @@ jobs:
         env:
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 
-      - name: "check is DJANGO_SECRET_KEY exists"
-        env: 
-            super_secret: ${{ secrets.DJANGO_SECRET_KEY }}
-        if: ${{ env.super_secret == '' }}
-        run: 'echo "echo the secret \"DJANGO_SECRET_KEY\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
-
+      - name: Check if DJANGO_SECRET_KEY exists
+        run: |
+          if [ -z "${{ secrets.DJANGO_SECRET_KEY }}" ]; then
+            echo "DJANGO_SECRET_KEY is not set; please go to 'Settings > Secrets > Actions' to create it"
+            exit 1
+          fi
+        shell: bash
 
       - name: Commit and push schema file if there are changes
         run: |
