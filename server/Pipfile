@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 pokebase = "*"
+drf_spectacular = "*"
 
 [dev-packages]
 
