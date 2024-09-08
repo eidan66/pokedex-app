@@ -52,6 +52,6 @@ jobs:
             git status &&
             git add schema.yml &&
             git commit -m "Update OpenAPI schema" &&
-            git push origin HEAD:${{ github.head_ref }}  # Push to the PR branch
+            git push origin HEAD:${{ github.head_ref }}
           )
         working-directory: ./server
