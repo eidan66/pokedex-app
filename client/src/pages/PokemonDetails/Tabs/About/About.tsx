@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { GenderIcons } from '../../../../components/GenderIcons/GenderIcons';
+import { GenderIcons } from '../../../../components/GenderIcons';
 import { COLORS } from '../../../../constants/colors';
 import { About as AboutType } from '../../../../types/PokemonDetails';
 
@@ -9,7 +9,7 @@ interface AboutProps {
   about?: AboutType; // Make it optional in case data is not ready
 }
 
-export const About: React.FC<AboutProps> = ({ about }) => {
+export const About: FunctionComponent<AboutProps> = ({ about }) => {
   if (!about) {
     return null;
   } // Return null if no data yet

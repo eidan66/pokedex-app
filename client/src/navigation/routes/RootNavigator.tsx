@@ -7,13 +7,12 @@ import { SplashScreen } from '../../components/SplashScreen';
 import { COLORS } from '../../constants/colors';
 import { Abilities, Homepage, Items, Locations, Moves, Pokedex, TypeCharts } from '../../pages';
 import { PokemonDetails } from '../../pages/PokemonDetails';
-import { Fonts } from '../../constants/fonts';
 
 export type RootStackParamList = {
   SplashScreen: undefined;
   Homepage: undefined;
   PokemonDetails: {
-    pokemonId: string | number;
+    pokemonId: number;
   };
   [Cards.Pokedex]: undefined;
   [Cards.Moves]: undefined;

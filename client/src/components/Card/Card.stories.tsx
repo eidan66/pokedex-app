@@ -17,5 +17,9 @@ export const Basic: Story = {
   args: {
     background: COLORS.grass,
     title: 'Pokédex',
+    onCardPress: () => {
+      // eslint-disable-next-line no-console
+      console.log('Clicked!');
+    },
   },
 };

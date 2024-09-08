@@ -1,19 +1,20 @@
 import React, { FunctionComponent } from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
+import { Cards } from './data';
 import PokeballSvg from '../../../assets/svg/pokeballSvg.svg';
 import { COLORS } from '../../constants/colors';
 import { Fonts } from '../../constants/fonts';
 
-interface CardProps {
+export interface CardProps {
   background: string;
-  title: string;
+  title: Cards;
   style?: StyleProp<ViewStyle>;
-  onCardPress: (title: string) => void;
+  onCardPress?: (title: Cards) => void;
 }
 
 export const Card: FunctionComponent<CardProps> = ({ background, title, style, onCardPress }) => (
-  <TouchableOpacity onPressIn={() => onCardPress(title)}>
+  <TouchableOpacity onPressIn={() => onCardPress?.(title)}>
     <View style={[styles.container, { backgroundColor: background }, style]} testID="card-container">
       <Text style={styles.text}>{title}</Text>
       <View style={styles.pokeball}>

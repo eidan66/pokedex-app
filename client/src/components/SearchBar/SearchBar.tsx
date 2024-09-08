@@ -1,14 +1,14 @@
 import { SearchBar as SearchBarComponent } from '@rneui/themed';
-import React, { useRef, useState } from 'react';
+import React, { FunctionComponent, useRef, useState } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
 import { COLORS } from '../../constants/colors';
 import { Fonts } from '../../constants/fonts';
 
-type SearchBarComponentProps = {};
+// type SearchBarComponentProps = {};
 
 // TODO: Done the Search bar when we done creating the API.
-export const SearchBar: React.FunctionComponent<SearchBarComponentProps> = () => {
+export const SearchBar: FunctionComponent = () => {
   const [search, setSearch] = useState('');
   const searchBarRef = useRef<typeof SearchBarComponent>();
 
@@ -17,10 +17,10 @@ export const SearchBar: React.FunctionComponent<SearchBarComponentProps> = () =>
   };
 
   return (
-    <View style={styles.view}>
+    <View style={styles.view} testID="searchBarContainer">
       <Text style={styles.title}>What Pokemon{'\n'}are you looking for?</Text>
       <SearchBarComponent
-        testID="searchBarContainer"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ref={(currentRef: any) => (searchBarRef.current = currentRef)}
         placeholder="Type Pokemon,Move,Ability etc..."
         onChangeText={updateSearch}

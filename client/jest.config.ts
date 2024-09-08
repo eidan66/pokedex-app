@@ -1,6 +1,6 @@
 import type { Config } from 'jest';
 
-module.exports = {
+const config: Config = {
   preset: 'react-native',
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest',
@@ -17,5 +17,7 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
   coverageDirectory: 'coverage',
-  setupFiles: ['<rootDir>/__tests__/jestSetupFile.js'],
-} as Config;
+  setupFilesAfterEnv: ['<rootDir>/__tests__/jest.setup.js'],
+};
+
+export default config;

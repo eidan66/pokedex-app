@@ -24,6 +24,7 @@ export const SafeAreaView: FunctionComponent<SafeAreaViewProps> = ({ containerSt
         },
         containerStyle,
       ]}
+      testID="safe-area-container"
     >
       {children}
       <View
@@ -34,6 +35,7 @@ export const SafeAreaView: FunctionComponent<SafeAreaViewProps> = ({ containerSt
           },
           bottomStyle,
         ]}
+        testID="safe-area-bottom"
       />
     </View>
   );

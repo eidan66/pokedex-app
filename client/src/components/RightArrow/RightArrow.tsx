@@ -10,7 +10,7 @@ interface RightArrowProps {
 }
 
 export const RightArrow: FunctionComponent<RightArrowProps> = ({ color, style }) => (
-  <View style={style}>
-    <Icon name="arrowright" size={24} color={color || COLORS.gray} />
+  <View style={style} testID="right-arrow-container">
+    <Icon name="arrowright" size={24} color={color || COLORS.gray} testID="right-arrow-icon" />
   </View>
 );

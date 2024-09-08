@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { EvolutionStep } from './EvolutionStep';
+import { EvolutionStep } from './EvolutionStep/EvolutionStep';
 import { COLORS } from '../../../../constants/colors';
 import { Fonts } from '../../../../constants/fonts';
 import { Evolution as EvolutionType } from '../../../../types/PokemonDetails';
 
 interface EvolutionsProps {
-  evolutions?: EvolutionType[]; // Make it optional in case data is not ready
+  evolutions?: EvolutionType[];
 }
 
-export const Evolutions: React.FC<EvolutionsProps> = ({ evolutions }) => {
+export const Evolutions: FunctionComponent<EvolutionsProps> = ({ evolutions }) => {
   if (!evolutions || evolutions.length === 0) {
     return null;
   }

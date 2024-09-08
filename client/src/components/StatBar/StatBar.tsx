@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 
 import { COLORS } from '../../constants/colors';
@@ -6,9 +6,10 @@ import { COLORS } from '../../constants/colors';
 interface StatBarProps {
   name: string;
   value: number;
+  testID: string;
 }
 
-const StatBar: React.FC<StatBarProps> = ({ name, value }) => {
+export const StatBar: FunctionComponent<StatBarProps> = ({ name, value, testID }) => {
   const maxValue = name === 'total' ? 800 : 150;
   const barWidthAnim = useRef(new Animated.Value(0)).current;
 
@@ -23,10 +24,11 @@ const StatBar: React.FC<StatBarProps> = ({ name, value }) => {
   }, [barWidth, barWidthAnim]);
 
   return (
-    <View style={styles.statRow}>
+    <View style={styles.statRow} testID={testID}>
       <Text style={[styles.statName, { color: COLORS.black + COLORS['0.6'] }]}>{name}</Text>
       <View style={styles.statBarContainer}>
         <Animated.View
+          testID="stat-bar"
           style={[
             styles.statBar,
             {
@@ -43,8 +45,6 @@ const StatBar: React.FC<StatBarProps> = ({ name, value }) => {
     </View>
   );
 };
-
-export default StatBar;
 
 const styles = StyleSheet.create({
   statRow: {

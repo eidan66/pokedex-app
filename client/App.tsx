@@ -11,7 +11,7 @@ const App = () => (
 
 let AppEntryPoint = App;
 
-// @ts-expect-error storybook
+// @ts-expect-error storybook problem
 if (process.env.STORYBOOK_ENABLED) {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   AppEntryPoint = require('./.ondevice').default;

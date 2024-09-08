@@ -40,7 +40,7 @@ export const Box: FunctionComponent<BoxProps> = ({
             <Text style={styles.name}>{capitalizeFirstLetter(name)}</Text>
             <Text style={styles.pokemonNumber}>{number}</Text>
           </View>
-          <View style={styles.types}>{types.map((pokemonType, index) => renderTypes(pokemonType, index))}</View>
+          <View style={styles.types}>{types?.map((pokemonType, index) => renderTypes(pokemonType, index))}</View>
           <View style={styles.pokeImgContainer}>
             <PokeballSvg
               style={hasTwoTypes ? styles.pokeball : styles.singlePokeballType}

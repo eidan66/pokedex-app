@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-import PokeballSvg from '../../../../../assets/svg/pokeballSvg.svg';
-import { COLORS } from '../../../../constants/colors';
+import PokeballSvg from '../../../../../../assets/svg/pokeballSvg.svg';
+import { COLORS } from '../../../../../constants/colors';
 
 interface EvolutionProps {
   uri: string;

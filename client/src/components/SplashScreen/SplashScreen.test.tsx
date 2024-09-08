@@ -1,5 +1,6 @@
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import React from 'react';
+
 import { SplashScreen } from './SplashScreen';
 import { createNavigationPropsMock } from '../../../__tests__/navigationMocks/createNavigationPropsMock';
 import { RootStackParamList } from '../../navigation/routes';
@@ -14,6 +15,7 @@ describe('SplashScreen', () => {
     const { getByTestId } = render(<SplashScreen {...navigationMockProps} />);
 
     expect(getByTestId('splash-container')).toBeTruthy();
+    expect(getByTestId('splash-logo')).toBeTruthy();
     expect(getByTestId('splash-logo')).toBeTruthy();
     expect(getByTestId('splash-lottie')).toBeTruthy();
   });

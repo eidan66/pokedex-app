@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import {
@@ -23,7 +24,7 @@ import { GoBack } from '../../components/GoBack';
 import { TypeBox } from '../../components/TypeBox';
 import { COLORS } from '../../constants/colors';
 import { Fonts } from '../../constants/fonts';
-import { SafeAreaView } from '../../hoc/SafeAreaView/SafeAreaView';
+import { SafeAreaView } from '../../hoc/SafeAreaView';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
 import { PokemonTypes } from '../../types';
@@ -45,7 +46,7 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
     // Fetch or load the Pokémon data based on the pokemonId
     const fetchPokemonData = () => {
       // Replace with actual data fetching logic
-      // const data: PokemonData = await getPokemonData(pokemonId); // Your data fetching function
+      // const data: PokemonData = await getPokemonData(pokemonId);
       setPokemonData(mockPokemonData);
     };
 
@@ -97,7 +98,11 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
   );
 
   if (!pokemonData) {
-    return <Text>Loading...</Text>; // You can replace this with a better loading UI
+    return (
+      <View testID="loading-pokemon-data">
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 
   return (
@@ -113,7 +118,7 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
         <View style={styles.header}>
           <GoBack />
           <TouchableOpacity onPressIn={handleFavorite} delayPressIn={800}>
-            <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+            <Animated.View style={{ transform: [{ scale: scaleValue }] }} testID="heart-icon">
               {isFavorite ? (
                 <Icon name="heart" size={24} color={COLORS.white} />
               ) : (

@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Evolution } from './Evolution';
-import { RightArrow } from '../../../../components/RightArrow';
-import { COLORS } from '../../../../constants/colors';
+import { RightArrow } from '../../../../../components/RightArrow';
+import { COLORS } from '../../../../../constants/colors';
+import { Evolution } from '../Evolution';
 
 interface EvolutionStepProps {
   uri: string;
@@ -11,7 +11,7 @@ interface EvolutionStepProps {
 }
 
 export const EvolutionStep: FunctionComponent<EvolutionStepProps> = ({ uri, level }) => (
-  <View style={styles.evolutionStep}>
+  <View style={styles.evolutionStep} testID="evolution-step">
     <Evolution uri={uri} />
     {level && (
       <View style={styles.arrowContainer}>

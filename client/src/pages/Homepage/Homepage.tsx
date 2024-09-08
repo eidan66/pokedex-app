@@ -1,16 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { Card } from '../../components/Card';
+import { Card, CardProps } from '../../components/Card';
 import { CARDS_DATA, Cards } from '../../components/Card/data';
 import { SearchBar } from '../../components/SearchBar';
-import { SafeAreaView } from '../../hoc/SafeAreaView/SafeAreaView';
+import { SafeAreaView } from '../../hoc/SafeAreaView';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
-import { setPokemons } from '../../redux/slices/pokemonSlice';
-import { RootState } from '../../redux/store';
 
 type HomepageScreenProps = NativeStackScreenProps<RootStackParamList, RootStackTypes.Homepage>;
 
@@ -20,25 +17,7 @@ export const Homepage: FunctionComponent<HomepageScreenProps> = ({ navigation })
     navigation.navigate(navigateTo);
   };
 
-  // @ts-expect-error
-  const renderCardItem = ({ item }) => <Card {...item} onCardPress={onCardPress} />;
-
-  const dispatch = useDispatch();
-  const pokemons = useSelector((state: RootState) => state.pokemon.pokemons);
-
-  const fetchPokemons = () => {
-    // For this basic example, let's just use a hardcoded list of Pokémon names
-    const fetchedPokemons = ['Bulbasaur', 'Ivysaur', 'Venusaur'];
-    dispatch(setPokemons(fetchedPokemons));
-  };
-
-  useEffect(() => {
-    fetchPokemons();
-  }, []);
-
-  useEffect(() => {
-    console.log('pokemons', { pokemons });
-  }, [pokemons]);
+  const renderCardItem = ({ item }: { item: CardProps }) => <Card {...item} onCardPress={onCardPress} />;
 
   return (
     <SafeAreaView>
