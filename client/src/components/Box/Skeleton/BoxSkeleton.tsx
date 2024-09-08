@@ -1,11 +1,10 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { Skeleton } from '@rneui/themed';
+import React, { FunctionComponent } from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import PokeballSvg from '../../../../assets/svg/pokeballSvg.svg';
 import { COLORS } from '../../../constants/colors';
 
-export const BoxSkeleton: React.FC = () => (
+export const BoxSkeleton: FunctionComponent = () => (
   <View style={styles.container} testID="skeleton-box">
     <View style={styles.headerContainer}>
       <Skeleton width={90} height={20} animation="wave" style={styles.skeletonText} testID="skeleton-text" />

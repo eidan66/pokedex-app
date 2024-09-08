@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GenderIcons matches the snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Image
+      resizeMode="contain"
+      source={
+        {
+          "testUri": "../../../assets/images/male.png",
+        }
+      }
+      style={
+        {
+          "height": 25,
+          "marginRight": 5,
+          "width": 20,
+        }
+      }
+    />
+    <Text
+      style={
+        {
+          "fontSize": 16,
+        }
+      }
+    >
+      70
+      %
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Image
+      resizeMode="contain"
+      source={
+        {
+          "testUri": "../../../assets/images/female.png",
+        }
+      }
+      style={
+        {
+          "height": 25,
+          "marginRight": 5,
+          "width": 20,
+        }
+      }
+    />
+    <Text
+      style={
+        {
+          "fontSize": 16,
+        }
+      }
+    >
+      30
+      %
+    </Text>
+  </View>
+</View>
+`;

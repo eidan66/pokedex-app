@@ -1,5 +1,6 @@
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import React from 'react';
+
 import { SplashScreen } from './SplashScreen';
 import { createNavigationPropsMock } from '../../../__tests__/navigationMocks/createNavigationPropsMock';
 import { RootStackParamList } from '../../navigation/routes';

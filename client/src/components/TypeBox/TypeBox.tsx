@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import { COLORS } from '../../constants/colors';
 import { PokemonTypes } from '../../types';
@@ -8,10 +8,11 @@ import { capitalizeFirstLetter } from '../../utils/capitalize';
 interface TypeBoxProps {
   bg: string;
   typeName: PokemonTypes;
+  style?: StyleProp<ViewStyle>;
 }
 
-export const TypeBox: FunctionComponent<TypeBoxProps> = ({ bg, typeName }) => (
-  <View style={[styles.container, { backgroundColor: bg }]}>
+export const TypeBox: FunctionComponent<TypeBoxProps> = ({ bg, typeName, style }) => (
+  <View style={[styles.container, { backgroundColor: bg }, style]}>
     <Text style={styles.text}>{capitalizeFirstLetter(typeName)}</Text>
   </View>
 );

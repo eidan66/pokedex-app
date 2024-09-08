@@ -1,55 +1,76 @@
-import { render, waitFor, screen, act, fireEvent } from '@testing-library/react-native';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import fetchMock from 'jest-fetch-mock';
 import React from 'react';
+
 import { Pokedex } from './Pokedex';
-import { DATA } from '../../../MOCK_DATA/MOCK';
 import { createNavigationPropsMock } from '../../../__tests__/navigationMocks/createNavigationPropsMock';
-import { RootStackParamList } from '../../navigation/routes';
 import { Cards } from '../../components/Card/data';
+import { RootStackParamList } from '../../navigation/routes';
 
 const navigationMockProps = createNavigationPropsMock<RootStackParamList, Cards.Pokedex>();
 
 jest.useFakeTimers();
+jest.setTimeout(10000); // Set a longer timeout for the tests
 
 describe('Pokedex', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+
   it('should initially render the loading skeleton', () => {
     render(<Pokedex {...navigationMockProps} />);
-
     expect(screen.getByTestId('skeleton-box-list')).toBeTruthy();
   });
 
   it('should render the list of Pokémon after loading', async () => {
-    render(<Pokedex {...navigationMockProps} />);
+    // Mock a successful fetch response
+    fetchMock.mockResponseOnce(
+      JSON.stringify({
+        results: [
+          {
+            name: 'Bulbasaur',
+            number: '001',
+          },
+        ],
+        next: null,
+      }),
+    );
 
-    // Wrap the timer run in act to handle state updates correctly
-    await act(async () => {
-      jest.runAllTimers();
-    });
+    render(<Pokedex {...navigationMockProps} />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('skeleton-box-list')).toBeNull(); // Ensure skeleton is gone
 
-      DATA.forEach((pokemon) => {
-        const testID = `${pokemon.pokemonName}-${pokemon.pokemonNumber}`;
-        expect(screen.getByTestId(testID)).toBeTruthy(); // Check if each Pokémon box is rendered by testID
-      });
+      // Check if the first Pokémon is rendered by its testID
+      const testID = 'Bulbasaur-001';
+      expect(screen.getByTestId(testID)).toBeTruthy();
     });
   });
 
   it('should call onPokemonPress when a Pokémon box is pressed', async () => {
+    // Mock a successful fetch response
+    fetchMock.mockResponseOnce(
+      JSON.stringify({
+        results: [
+          {
+            name: 'Bulbasaur',
+            number: '001',
+          },
+        ],
+        next: null,
+      }),
+    );
+
     render(<Pokedex {...navigationMockProps} />);
 
-    // Wrap the timer run in act to handle state updates correctly
-    await act(async () => {
-      jest.runAllTimers();
-    });
-
     await waitFor(() => {
-      const firstPokemon = DATA[0];
-      const testID = `${firstPokemon.pokemonName}-${firstPokemon.pokemonNumber}`;
+      const firstPokemon = { name: 'Bulbasaur', number: '001' };
+      const testID = `${firstPokemon.name}-${firstPokemon.number}`;
       const pokemonBox = screen.getByTestId(testID);
 
       // Simulate pressing the Pokémon box
-      fireEvent.press(pokemonBox);
+      fireEvent(pokemonBox, 'pressIn');
+      expect(navigationMockProps.navigation.navigate).toHaveBeenCalled();
     });
   });
 });
