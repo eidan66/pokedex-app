@@ -1,0 +1,51 @@
+name: Update OpenAPI Schema
+
+on:
+  push:
+    paths:
+      - 'server/**'
+  pull_request:
+    paths:
+      - 'server/**'
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.5'
+
+      - name: Install dependencies with Pipenv
+        run: |
+          pip install pipenv
+          pipenv install --dev
+        working-directory: ./server
+
+      - name: Generate OpenAPI Schema
+        run: |
+          pipenv run python manage.py spectacular --color --file schema.yml
+          ls -lsa
+        working-directory: ./server
+        env:
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+
+      - name: Force commit and push schema file
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add schema.yml
+          git commit -m "Force update OpenAPI schema" || echo "No changes to commit"
+          git push origin HEAD:${{ github.head_ref }}
+        working-directory: ./server
