@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Pokémon API
+  version: 1.0.0
+  description: API documentation for Pokémon
+paths:
+  /api/pokemon/{id}/:
+    get:
+      operationId: pokemon_detail
+      summary: Retrieve a Pokémon by ID
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - pokemon
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+          description: ''
+  /api/pokemons/:
+    get:
+      operationId: pokemon_list
+      summary: List all Pokémon
+      tags:
+      - pokemons
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+          description: ''
+components:
+  schemas:
+    Pokemon:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          maxLength: 100
+        number:
+          type: string
+          maxLength: 50
+        types:
+          type: array
+          items:
+            type: string
+            maxLength: 50
+        boxBg:
+          type: string
+          maxLength: 100
+        svg:
+          type: string
+          format: uri
+        error:
+          type: string
+          maxLength: 200
+      required:
+      - boxBg
+      - id
+      - name
+      - number
+      - svg
+      - types
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
