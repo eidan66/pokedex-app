@@ -17,20 +17,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.12.5'
 
-      - name: Install dependencies
+      - name: Install dependencies with Pipenv
         run: |
-          pip install -r requirements.txt
+          pip install pipenv
+          pipenv install --dev
 
       - name: Generate OpenAPI Schema
         run: |
-          python manage.py spectacular --color --file schema.yml
+          pipenv run python manage.py spectacular --color --file schema.yml
 
       - name: Commit and push schema file
         run: |
