@@ -59,3 +59,4 @@ jobs:
 
       - name: Run Tests
         run: yarn jest
+        working-directory: ./client
