@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - client/**
   pull_request:
     branches:
       - main
-  paths:
+    paths:
       - client/**
 
 permissions:

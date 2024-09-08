@@ -5,7 +5,7 @@ import { StatBar } from './StatBar';
 import { COLORS } from '../../constants/colors';
 
 describe('StatBar', () => {
-  it('renders the StatBar with correct name and value', () => {
+  it('renders the StatBar with correct name and value ', () => {
     const { getByText } = render(<StatBar name="HP" value={100} testID={'stats-HP'} />);
 
     expect(getByText('HP')).toBeTruthy();
