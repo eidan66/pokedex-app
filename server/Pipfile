@@ -8,6 +8,7 @@ django = "*"
 pokebase = "*"
 drf_spectacular = "*"
 python-decouple = "*"
+gunicorn = "*"
 
 [dev-packages]
 
