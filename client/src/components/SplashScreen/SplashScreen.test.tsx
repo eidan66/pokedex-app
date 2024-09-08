@@ -16,7 +16,6 @@ describe('SplashScreen', () => {
 
     expect(getByTestId('splash-container')).toBeTruthy();
     expect(getByTestId('splash-logo')).toBeTruthy();
-    expect(getByTestId('splash-logo')).toBeTruthy();
     expect(getByTestId('splash-lottie')).toBeTruthy();
   });
 

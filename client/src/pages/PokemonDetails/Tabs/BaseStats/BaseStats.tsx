@@ -5,7 +5,7 @@ import { StatBar } from '../../../../components/StatBar/StatBar';
 import { BaseStats as BaseStatsType } from '../../../../types/PokemonDetails';
 
 interface BaseStatsProps {
-  baseStats?: BaseStatsType; // Make it optional in case data is not ready
+  baseStats?: BaseStatsType;
 }
 
 export const BaseStats: FunctionComponent<BaseStatsProps> = ({ baseStats }) => {

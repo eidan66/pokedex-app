@@ -14,6 +14,13 @@ jest.mock('@react-navigation/native', () => {
       goBack: jest.fn(),
       canGoBack: jest.fn(),
       replace: jest.fn(),
+      setOptions: jest.fn(),
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      isFocused: jest.fn(),
+      getParent: jest.fn(),
+      getState: jest.fn(),
+      reset: jest.fn(),
     }),
   };
 });
