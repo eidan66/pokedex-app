@@ -33,6 +33,7 @@ jobs:
       - name: Generate OpenAPI Schema
         run: |
           pipenv run python manage.py spectacular --color --file schema.yml
+          ls -lsa
         working-directory: ./server
         env:
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
