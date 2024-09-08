@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pokedexServer',
     'drf_spectacular',
     'rest_framework',
-    # 'drf_yasg',
 ]
 
 REST_FRAMEWORK = {
@@ -52,8 +52,13 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API documentation for Pokémon',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': r'/api/',  
+    'COMPONENT_SPLIT_REQUEST': True,
+    'FORMAT_SUFFIX_KWARG': 'format',
+    'APPEND_PATH_FORMAT_SUFFIX': False,
+    'PERSIST_AUTH': True,  
+    'SORT_OPERATIONS': True, 
 }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
