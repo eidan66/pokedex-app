@@ -12,7 +12,7 @@ describe('Box component', () => {
     const { getByText, getByTestId } = render(
       <Box
         boxBg={COLORS.grass}
-        svg="https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/1.gif?raw=true"
+        gif="https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/1.gif?raw=true"
         name="Bulbasaur"
         number="#001"
         types={[PokemonTypes.Grass, PokemonTypes.Poison]}
@@ -33,7 +33,7 @@ describe('Box component', () => {
     const { getByTestId } = render(
       <Box
         boxBg={COLORS.grass}
-        svg="https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/1.gif?raw=true"
+        gif="https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/1.gif?raw=true"
         name="Bulbasaur"
         number="#001"
         types={[PokemonTypes.Grass, PokemonTypes.Poison]}

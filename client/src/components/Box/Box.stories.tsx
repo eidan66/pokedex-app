@@ -16,11 +16,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    pokemonName: 'Charizard',
-    pokemonNumber: '#006',
-    pokemonTypes: [PokemonTypes.Fire, PokemonTypes.Flying],
+    id: 6,
+    name: 'Charizard',
+    number: '#006',
+    types: [PokemonTypes.Fire, PokemonTypes.Flying],
     boxBg: COLORS.fire,
-    pokemonSvg: 'https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/6.gif?raw=true',
+    gif: 'https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/6.gif?raw=true',
     size: {
       width: 100,
       height: 150,
@@ -29,6 +30,7 @@ export const Basic: Story = {
       bottom: 60,
     },
     onPokemonPress: () => {
+      // eslint-disable-next-line no-console
       console.log('Triggered click');
     },
   },
