@@ -9,14 +9,14 @@ import { Cards } from '../../components/Card/data';
 import { RootStackParamList } from '../../navigation/routes';
 import { RootStackTypes } from '../../navigation/routes/types';
 import { FetchResponse, PokedexResponse } from '../../types';
-import { ServerUrl } from '../../utils/serverUrl';
+import { getBaseUrl } from '../../utils/serverUrl';
 
 type PokedexScreenProps = NativeStackScreenProps<RootStackParamList, Cards.Pokedex>;
 
 export const Pokedex: FunctionComponent<PokedexScreenProps> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [pokemons, setPokemons] = useState<PokedexResponse[]>([]);
-  const [nextPage, setNextPage] = useState<string>(`${ServerUrl()}/pokemons`);
+  const [nextPage, setNextPage] = useState<FetchResponse['next']>(`${getBaseUrl()}/pokemons`);
 
   const fetchPokemons = async () => {
     try {
@@ -25,7 +25,7 @@ export const Pokedex: FunctionComponent<PokedexScreenProps> = ({ navigation }) =
       }
 
       setIsLoading(true);
-      const response = await fetch(nextPage);
+      const response = await fetch(nextPage ?? `${getBaseUrl()}/pokemons`);
       const jsonData = (await response.json()) as FetchResponse;
 
       setPokemons((prevData) => [...prevData, ...jsonData.results]);

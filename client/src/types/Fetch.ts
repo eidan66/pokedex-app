@@ -6,11 +6,13 @@ export interface PokedexResponse {
   number: string;
   types: PokemonTypes[];
   boxBg: string;
-  svg: string;
+  gif: string;
+  error?: null | Error;
 }
 
 export interface FetchResponse {
   count: number;
-  next: string;
+  next: string | null;
+  previous: string | null;
   results: PokedexResponse[];
 }

@@ -13,8 +13,6 @@ from .models.pokemon.PokemonTypeModel import PokemonTypeModel
 from .models.pokemon.Colors import Colors
 from .utils import pad, paginate
 
-
-
 class PokemonListView(GenericAPIView):
     serializer_class = PokemonSerializer  # Specify the serializer class
 
@@ -58,15 +56,15 @@ class PokemonListView(GenericAPIView):
     def get_pagination_links(self, request, offset, limit, count, full_url):
         previous, next = None, None
 
+        base_url = full_url.split('?')[0]  
+
         if offset > 0:
             previous_offset = max(0, offset - limit)
-            previous_limit = min(limit, offset)
-            previous = f'{full_url}?offset={previous_offset}&limit={previous_limit}'
+            previous = f'{base_url}?offset={previous_offset}&limit={limit}'
 
         if offset + limit < count:
             next_offset = offset + limit
-            next_limit = min(limit, count - next_offset)
-            next = f'{full_url}?offset={next_offset}&limit={next_limit}'
+            next = f'{base_url}?offset={next_offset}&limit={limit}'
 
         return previous, next
 
@@ -93,7 +91,7 @@ class PokemonDetailView(APIView):
                 number=pad(pokeAPIPokemon.id),
                 types=[type.type.name for type in pokeAPIPokemon.types],
                 boxBg=Colors[PokemonTypeModel(pokeAPIPokemon.types[0].type.name).value].value[0],
-                svg=f'https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/{pokeAPIPokemon.id}.gif?raw=true'
+                gif=f'https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/{pokeAPIPokemon.id}.gif?raw=true'
             )
         except Exception as e:
             return PokemonModel(error=str(e))

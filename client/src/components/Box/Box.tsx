@@ -14,8 +14,8 @@ interface BoxProps extends PokedexPokemon {
 }
 
 export const Box: FunctionComponent<BoxProps> = ({
-  boxBg = COLORS.normal,
-  svg,
+  boxBg: backgroundColor,
+  gif,
   name,
   number,
   id,
@@ -24,6 +24,8 @@ export const Box: FunctionComponent<BoxProps> = ({
   imageStyle = {},
   onPokemonPress,
 }) => {
+  const boxBg = backgroundColor || COLORS[types[0].toLowerCase() as Lowercase<PokemonTypes>];
+
   const renderTypes = (pokemonType: PokemonTypes, index: number) => (
     <View key={`${pokemonType}${index}`}>
       <TypeBox bg={boxBg} typeName={pokemonType} />
@@ -33,7 +35,7 @@ export const Box: FunctionComponent<BoxProps> = ({
   const hasTwoTypes = types?.length === 2;
 
   return (
-    <TouchableOpacity onPressIn={() => onPokemonPress(id)} testID={`${name}-${number}`}>
+    <TouchableOpacity onPressIn={() => onPokemonPress(id)} testID={`${name}-${number}`} delayPressIn={800}>
       <View style={[styles.container, { backgroundColor: `${boxBg}${COLORS['0.8']}` }]}>
         <View>
           <View style={styles.headerContainer}>
@@ -49,11 +51,11 @@ export const Box: FunctionComponent<BoxProps> = ({
             />
             <Image
               style={[hasTwoTypes ? styles.image : styles.singleImageType, imageStyle]}
-              source={{ uri: svg }}
+              source={{ uri: gif }}
               resizeMode="contain"
               width={size?.width || 80}
               height={size?.height || 70}
-              testID="pokemon-image"
+              testID={`pokemon-gif-${id}`}
             />
           </View>
         </View>
