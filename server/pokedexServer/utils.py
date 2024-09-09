@@ -1,10 +1,13 @@
 def paginate(arr, offset, limit):
-  if (offset < 0):
-    raise Exception('Offset must be greater than or equal 0')
-  if (limit < 1):
-    raise Exception('Limit must be greater than or equal 1')
-  
-  return arr[offset : offset + limit]
+    if offset < 0:
+        raise ValueError('Offset must be greater than or equal to 0')
+    if limit < 1:
+        raise ValueError('Limit must be greater than or equal to 1')
+    
+    if offset >= len(arr):
+        return []
+    
+    return arr[offset : offset + limit]
   
   
   

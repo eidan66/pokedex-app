@@ -6,7 +6,7 @@ export interface PokedexResponse {
   number: string;
   types: PokemonTypes[];
   boxBg: string;
-  svg: string;
+  gif: string;
 }
 
 export interface FetchResponse {

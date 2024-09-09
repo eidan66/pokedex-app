@@ -1,3 +1,6 @@
 /* eslint-disable no-confusing-arrow */
-export const ServerUrl = (bypassDev = false) =>
-  !bypassDev && __DEV__ ? 'http://localhost:3000' : 'https://pokedex-app-5f27.onrender.com';
+
+export const getBaseUrl = () =>
+  process.env.RUN_WITH_LOCAL_SERVER === 'true' && __DEV__
+    ? 'http://127.0.0.1:8000/api/'
+    : 'https://pokedex-app-qfip.onrender.com/api/';
