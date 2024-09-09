@@ -25,7 +25,7 @@ describe('Box component', () => {
     expect(getByText('#001')).toBeTruthy();
     expect(getByText('Grass')).toBeTruthy();
     expect(getByText('Poison')).toBeTruthy();
-    const image = getByTestId('pokemon-image');
+    const image = getByTestId('pokemon-gif-1');
     expect(image).toBeTruthy();
   });
 
