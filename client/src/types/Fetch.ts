@@ -7,10 +7,12 @@ export interface PokedexResponse {
   types: PokemonTypes[];
   boxBg: string;
   gif: string;
+  error?: null | Error;
 }
 
 export interface FetchResponse {
   count: number;
-  next: string;
+  next: string | null;
+  previous: string | null;
   results: PokedexResponse[];
 }

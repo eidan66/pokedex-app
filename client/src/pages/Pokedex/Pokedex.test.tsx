@@ -6,71 +6,67 @@ import { Pokedex } from './Pokedex';
 import { createNavigationPropsMock } from '../../../__tests__/navigationMocks/createNavigationPropsMock';
 import { Cards } from '../../components/Card/data';
 import { RootStackParamList } from '../../navigation/routes';
-
-const navigationMockProps = createNavigationPropsMock<RootStackParamList, Cards.Pokedex>();
+import { FetchResponse, PokemonTypes } from '../../types';
+import { capitalizeFirstLetter } from '../../utils/capitalize';
 
 jest.useFakeTimers();
 jest.setTimeout(10000); // Set a longer timeout for the tests
 
+const mockObject: FetchResponse = {
+  count: 1234,
+  next: null,
+  previous: null,
+  results: [
+    {
+      id: 1,
+      name: 'Bulbasaur',
+      number: '#001',
+      types: [PokemonTypes.Grass, PokemonTypes.Poison],
+      boxBg: '#7AC74C',
+      gif: 'https://github.com/eidan66/pokemon-api-sprites/blob/master/sprites/pokemon/other/showdown/1.gif?raw=true',
+      error: null,
+    },
+  ],
+};
+
+fetchMock.enableMocks();
+
+beforeEach(() => {
+  fetchMock.resetMocks();
+});
 describe('Pokedex', () => {
-  beforeEach(() => {
-    fetchMock.resetMocks();
-  });
+  const navigationMockProps = createNavigationPropsMock<RootStackParamList, Cards.Pokedex>();
+  const upperCaseName = capitalizeFirstLetter(mockObject.results[0].name);
 
   it('should initially render the loading skeleton', () => {
     render(<Pokedex {...navigationMockProps} />);
+
     expect(screen.getByTestId('skeleton-box-list')).toBeTruthy();
   });
 
-  it('should render the list of Pokémon after loading', async () => {
-    // Mock a successful fetch response
-    fetchMock.mockResponseOnce(
-      JSON.stringify({
-        results: [
-          {
-            name: 'Bulbasaur',
-            number: '001',
-          },
-        ],
-        next: null,
-      }),
-    );
+  it('fetches and renders Pokémon correctly', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(mockObject));
 
-    render(<Pokedex {...navigationMockProps} />);
+    const { getByText, getByTestId } = render(<Pokedex {...navigationMockProps} />);
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('skeleton-box-list')).toBeNull(); // Ensure skeleton is gone
+    await waitFor(() => expect(getByText(upperCaseName)).toBeTruthy());
+    expect(getByText('#001')).toBeTruthy();
 
-      // Check if the first Pokémon is rendered by its testID
-      const testID = 'Bulbasaur-001';
-      expect(screen.getByTestId(testID)).toBeTruthy();
-    });
+    const gifElement = getByTestId(`pokemon-gif-${mockObject.results[0].id}`);
+
+    expect(gifElement).toBeTruthy();
+    expect(gifElement.props.source.uri).toBe(mockObject.results[0].gif);
   });
 
-  it('should call onPokemonPress when a Pokémon box is pressed', async () => {
-    // Mock a successful fetch response
-    fetchMock.mockResponseOnce(
-      JSON.stringify({
-        results: [
-          {
-            name: 'Bulbasaur',
-            number: '001',
-          },
-        ],
-        next: null,
-      }),
-    );
+  it('triggers navigation to the Pokémon details screen on item press', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify(mockObject));
 
-    render(<Pokedex {...navigationMockProps} />);
+    const { getByText } = render(<Pokedex {...navigationMockProps} />);
 
-    await waitFor(() => {
-      const firstPokemon = { name: 'Bulbasaur', number: '001' };
-      const testID = `${firstPokemon.name}-${firstPokemon.number}`;
-      const pokemonBox = screen.getByTestId(testID);
+    await waitFor(() => expect(getByText(upperCaseName)).toBeTruthy());
 
-      // Simulate pressing the Pokémon box
-      fireEvent(pokemonBox, 'pressIn');
-      expect(navigationMockProps.navigation.navigate).toHaveBeenCalled();
-    });
+    fireEvent(getByText(upperCaseName), 'pressIn');
+
+    expect(navigationMockProps.navigation.navigate).toHaveBeenCalledWith('PokemonDetails', { pokemonId: 1 });
   });
 });

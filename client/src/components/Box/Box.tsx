@@ -55,7 +55,7 @@ export const Box: FunctionComponent<BoxProps> = ({
               resizeMode="contain"
               width={size?.width || 80}
               height={size?.height || 70}
-              testID="pokemon-image"
+              testID={`pokemon-gif-${id}`}
             />
           </View>
         </View>
