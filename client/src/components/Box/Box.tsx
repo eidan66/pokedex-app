@@ -10,7 +10,7 @@ import { capitalizeFirstLetter } from '../../utils/capitalize';
 import { TypeBox } from '../TypeBox';
 
 interface BoxProps extends PokedexPokemon {
-  onPokemonPress: (id: number) => void;
+  onPokemonPress: (id: number, backgroundColor: string) => void;
 }
 
 export const Box: FunctionComponent<BoxProps> = ({
@@ -28,14 +28,18 @@ export const Box: FunctionComponent<BoxProps> = ({
 
   const renderTypes = (pokemonType: PokemonTypes, index: number) => (
     <View key={`${pokemonType}${index}`}>
-      <TypeBox bg={boxBg} typeName={pokemonType} />
+      <TypeBox typeName={pokemonType} />
     </View>
   );
 
   const hasTwoTypes = types?.length === 2;
 
   return (
-    <TouchableOpacity onPressIn={() => onPokemonPress(id)} testID={`${name}-${number}`} delayPressIn={800}>
+    <TouchableOpacity
+      onPressIn={() => onPokemonPress(id, backgroundColor)}
+      testID={`${name}-${number}`}
+      delayPressIn={800}
+    >
       <View style={[styles.container, { backgroundColor: `${boxBg}${COLORS['0.8']}` }]}>
         <View>
           <View style={styles.headerContainer}>
