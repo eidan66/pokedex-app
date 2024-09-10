@@ -13,6 +13,7 @@ export type RootStackParamList = {
   Homepage: undefined;
   PokemonDetails: {
     pokemonId: number;
+    backgroundColor: string;
   };
   [Cards.Pokedex]: undefined;
   [Cards.Moves]: undefined;

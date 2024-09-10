@@ -16,18 +16,18 @@ const MoveCard: FunctionComponent<{ move: MoveType }> = ({ move }) => (
   <View style={styles.card}>
     <View style={styles.header}>
       <Text style={styles.moveName}>{move.name}</Text>
-      <Text
+      <View
         style={[
           styles.typeBadge,
           { backgroundColor: getTypeColor(move.type.toLowerCase() as Lowercase<PokemonTypes>) },
         ]}
       >
-        {move.type}
-      </Text>
+        <Text style={styles.textBadge}>{move.type}</Text>
+      </View>
     </View>
     <View style={styles.moveDetails}>
-      <Text style={styles.detailText}>Power: {move.power}</Text>
-      <Text style={styles.detailText}>Accuracy: {move.accuracy}%</Text>
+      <Text style={styles.detailText}>Power: {move.power ?? 'N/A'}</Text>
+      <Text style={styles.detailText}>Accuracy: {move.accuracy ? `${move.accuracy}%` : 'N/A'}</Text>
       <Text style={styles.detailText}>Level Learned: {move.levelLearnedAt}</Text>
     </View>
   </View>
@@ -89,9 +89,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 5,
+    minWidth: 70,
+    minHeight: 30,
+    justifyContent: 'center',
+  },
+  textBadge: {
     color: COLORS.white,
-    fontWeight: '600',
+    fontWeight: '500',
     fontSize: 14,
+    textAlign: 'center',
   },
   moveDetails: {
     flexDirection: 'column',

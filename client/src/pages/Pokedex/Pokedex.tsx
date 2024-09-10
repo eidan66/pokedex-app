@@ -30,7 +30,7 @@ export const Pokedex: FunctionComponent<PokedexScreenProps> = ({ navigation }) =
 
       setPokemons((prevData) => [...prevData, ...jsonData.results]);
 
-      setNextPage(__DEV__ ? `http://${jsonData.next}` : jsonData.next);
+      setNextPage(jsonData.next);
       setIsLoading(false);
     } catch (error) {
       console.error('Failed fetch Pokemons:', error);
@@ -42,8 +42,8 @@ export const Pokedex: FunctionComponent<PokedexScreenProps> = ({ navigation }) =
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onPokemonPress = (pokemonId: number) => {
-    navigation.navigate(RootStackTypes.PokemonDetails, { pokemonId });
+  const onPokemonPress = (pokemonId: number, backgroundColor: string) => {
+    navigation.navigate(RootStackTypes.PokemonDetails, { pokemonId, backgroundColor });
   };
 
   const renderPokemon = (pokemon: PokedexPokemon) => <Box onPokemonPress={onPokemonPress} {...pokemon} />;

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import LottieView from 'lottie-react-native';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import {
   Animated,
@@ -18,8 +19,8 @@ import { About } from './Tabs/About';
 import { BaseStats } from './Tabs/BaseStats';
 import { Evolutions } from './Tabs/Evolutions';
 import { Moves } from './Tabs/Moves';
+import PokeballLottie from '../../../assets/pokeballLottie.json';
 import PokeballSvg from '../../../assets/svg/pokeballSvg.svg';
-import { mockPokemonData } from '../../../MOCK_DATA/MOCK_DETAILS';
 import { GoBack } from '../../components/GoBack';
 import { TypeBox } from '../../components/TypeBox';
 import { COLORS } from '../../constants/colors';
@@ -30,27 +31,41 @@ import { RootStackTypes } from '../../navigation/routes/types';
 import { PokemonTypes } from '../../types';
 import { PokemonData } from '../../types/PokemonDetails';
 import { capitalizeFirstLetter } from '../../utils/capitalize';
+import { getBaseUrl } from '../../utils/serverUrl';
 
 type PokemonDetailsProps = NativeStackScreenProps<RootStackParamList, RootStackTypes.PokemonDetails>;
 
 export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: { params } }) => {
-  const { pokemonId } = params || {};
+  const { pokemonId, backgroundColor: bgColor } = params || {};
+  const [tabIndex, setTabIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const scaleValue = useRef(new Animated.Value(1)).current;
-  const [index, setIndex] = useState(0);
   const layout = useWindowDimensions();
+  const backgroundColor = bgColor + COLORS['0.8'];
 
-  const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
+  const fetchPokemons = async () => {
+    try {
+      if (isLoading) {
+        return;
+      }
+
+      setIsLoading(true);
+
+      const response = await fetch(`${getBaseUrl()}/pokemon/info/${pokemonId}`);
+      const jsonData = await response.json();
+
+      setPokemonData(jsonData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Failed fetch Pokemons:', error);
+    }
+  };
 
   useEffect(() => {
-    // Fetch or load the Pokémon data based on the pokemonId
-    const fetchPokemonData = () => {
-      // Replace with actual data fetching logic
-      // const data: PokemonData = await getPokemonData(pokemonId);
-      setPokemonData(mockPokemonData);
-    };
-
-    fetchPokemonData();
+    fetchPokemons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemonId]);
 
   const [routes] = useState([
@@ -63,7 +78,7 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
   const renderScene = SceneMap({
     about: () => <About about={pokemonData?.about} />,
     baseStats: () => <BaseStats baseStats={pokemonData?.baseStats} />,
-    evolutions: () => <Evolutions evolutions={pokemonData?.evolutions} />,
+    evolutions: () => <Evolutions evolutionsRes={pokemonData?.evolutions} />,
     moves: () => <Moves moves={pokemonData?.moves} />,
   });
 
@@ -89,24 +104,22 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
 
   const renderTypes = (pokemonType: PokemonTypes, typeIndex: number) => (
     <View key={`${pokemonType}${typeIndex}`}>
-      <TypeBox
-        bg={COLORS[pokemonType.toLowerCase() as Lowercase<PokemonTypes>]}
-        typeName={pokemonType}
-        style={styles.type}
-      />
+      <TypeBox typeName={pokemonType} style={styles.type} />
     </View>
   );
 
-  if (!pokemonData) {
+  if (isLoading || !pokemonData) {
     return (
-      <View testID="loading-pokemon-data">
-        <Text>Loading...</Text>
-      </View>
+      <SafeAreaView containerStyle={[styles.loadingScreen, { backgroundColor }]}>
+        <View testID="loading-pokemon-data">
+          <LottieView source={PokeballLottie} autoPlay loop style={styles.lottie} />
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView containerStyle={styles.safeArea}>
+    <SafeAreaView containerStyle={[styles.safeArea, { backgroundColor }]}>
       <View style={styles.container}>
         <StatusBar
           animated={true}
@@ -120,9 +133,9 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
           <TouchableOpacity onPressIn={handleFavorite} delayPressIn={800}>
             <Animated.View style={{ transform: [{ scale: scaleValue }] }} testID="heart-icon">
               {isFavorite ? (
-                <Icon name="heart" size={24} color={COLORS.white} />
+                <Icon name="heart" size={24} color={COLORS.white} testID="heart-icon-inline" />
               ) : (
-                <Icon name="heart-outlined" size={24} color={COLORS.white} />
+                <Icon name="heart-outlined" size={24} color={COLORS.white} testID="heart-icon-outline" />
               )}
             </Animated.View>
           </TouchableOpacity>
@@ -130,17 +143,19 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
         <View style={styles.infoContainer}>
           <View style={styles.info}>
             <Text style={styles.name}>{capitalizeFirstLetter(pokemonData.name)}</Text>
-            <View style={styles.types}>
+            <View style={[styles.types, pokemonData.types.length === 1 && styles.oneType]}>
               {pokemonData.types.map((pokemonType, index) => renderTypes(pokemonType as PokemonTypes, index))}
             </View>
           </View>
-          <Text style={styles.pokeNumber}> #{pokemonData.id}</Text>
+          <View style={styles.numberContainer}>
+            <Text style={styles.pokeNumber}>{pokemonData.number}</Text>
+          </View>
         </View>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
             source={{
-              uri: pokemonData.evolutions[0]?.imageUrl, // Show the base form image or use a specific image
+              uri: pokemonData.image, // Show the base form image or use a specific image
             }}
             resizeMode="contain"
             width={200}
@@ -157,9 +172,9 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
         </View>
         <View style={styles.details}>
           <TabView
-            navigationState={{ index, routes }}
+            navigationState={{ index: tabIndex, routes }}
             renderScene={renderScene}
-            onIndexChange={setIndex}
+            onIndexChange={setTabIndex}
             initialLayout={{ width: layout.width }}
             renderTabBar={(props) => (
               <TabBar
@@ -180,9 +195,13 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
 };
 
 const styles = StyleSheet.create({
+  loadingScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   safeArea: {
     flex: 1,
-    backgroundColor: COLORS.grass + COLORS['0.8'],
   },
   container: {
     flex: 1,
@@ -228,11 +247,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 5,
   },
+  numberContainer: {
+    height: 40,
+    alignSelf: 'flex-start',
+    marginTop: 8,
+  },
   pokeNumber: {
     fontFamily: Fonts.PokemonHollowSolid,
-    fontSize: 18,
+    fontSize: 24,
     color: COLORS.white + COLORS['0.6'],
     letterSpacing: 1.5,
+    textAlign: 'center',
   },
   types: {
     flexDirection: 'row',
@@ -252,6 +277,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     zIndex: 1,
   },
+  oneType: {
+    width: 70,
+    marginHorizontal: 5,
+  },
   tabLabel: {
     color: COLORS.black,
     fontSize: 12,
@@ -263,5 +292,9 @@ const styles = StyleSheet.create({
   },
   tab: {
     padding: 0,
+  },
+  lottie: {
+    width: 250,
+    height: 250,
   },
 });

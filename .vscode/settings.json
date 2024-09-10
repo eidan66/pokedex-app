@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["pokeball", "pokeballs", "pokebase", "Pokédex", "pokemon", "Pokemon", "pokemons", "Pokemons"]
+  "cSpell.words": ["pokeball", "pokeballs", "pokebase", "Pokédex", "pokemon", "Pokemon", "pokemons", "Pokemons"],
+  "python.analysis.typeCheckingMode": "off"
 }

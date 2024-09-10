@@ -43,6 +43,6 @@ describe('Box component', () => {
     );
 
     fireEvent(getByTestId('Bulbasaur-#001'), 'pressIn');
-    expect(mockOnPokemonPress).toHaveBeenCalledWith(1);
+    expect(mockOnPokemonPress).toHaveBeenCalledWith(1, '#7AC74C');
   });
 });

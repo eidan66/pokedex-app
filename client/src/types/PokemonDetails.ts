@@ -31,10 +31,20 @@ export interface BaseStats {
 }
 
 // Evolutions Section
-export interface Evolution {
+
+export type EvolutionMethod = 'Trade' | 'High Friendship' | string;
+
+export interface EvolutionsChain {
   name: string;
-  level: number;
+  level?: number | null;
+  methodImageUrl?: string | null;
+  evolutionMethod: EvolutionMethod;
   imageUrl: string;
+}
+
+export interface Evolution {
+  evolutions_chain: EvolutionsChain[];
+  all_from_base: boolean;
 }
 
 // Mega Evolutions Section
@@ -58,11 +68,13 @@ export interface Move {
 // Main Pokémon Data Interface
 export interface PokemonData {
   id: number;
+  number: string;
   name: string;
+  image: string;
   types: string[];
   about: About;
   baseStats: BaseStats;
-  evolutions: Evolution[];
+  evolutions: Evolution;
   megaEvolutions?: MegaEvolution[];
   moves: Move[];
 }

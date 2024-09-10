@@ -6,13 +6,14 @@ import { PokemonTypes } from '../../types';
 import { capitalizeFirstLetter } from '../../utils/capitalize';
 
 interface TypeBoxProps {
-  bg: string;
   typeName: PokemonTypes;
   style?: StyleProp<ViewStyle>;
 }
 
-export const TypeBox: FunctionComponent<TypeBoxProps> = ({ bg, typeName, style }) => (
-  <View style={[styles.container, { backgroundColor: bg }, style]}>
+export const TypeBox: FunctionComponent<TypeBoxProps> = ({ typeName, style }) => (
+  <View
+    style={[styles.container, { backgroundColor: COLORS[typeName.toLowerCase() as Lowercase<PokemonTypes>] }, style]}
+  >
     <Text style={styles.text}>{capitalizeFirstLetter(typeName)}</Text>
   </View>
 );

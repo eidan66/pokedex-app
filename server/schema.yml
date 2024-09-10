@@ -27,6 +27,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pokemon'
           description: ''
+  /api/pokemon/info/{id}/:
+    get:
+      operationId: pokemon_info
+      summary: Get Pokémon details by ID
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - pokemon
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PokemonInfo'
+          description: ''
   /api/pokemons/:
     get:
       operationId: pokemon_list
@@ -46,6 +69,126 @@ paths:
           description: ''
 components:
   schemas:
+    Ability:
+      type: object
+      properties:
+        name:
+          type: string
+        isHidden:
+          type: boolean
+      required:
+      - isHidden
+      - name
+    About:
+      type: object
+      properties:
+        species:
+          type: string
+        height:
+          type: integer
+        weight:
+          type: integer
+        abilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ability'
+        gender:
+          $ref: '#/components/schemas/Gender'
+        eggGroups:
+          type: array
+          items:
+            type: string
+        eggCycle:
+          type: string
+      required:
+      - abilities
+      - eggCycle
+      - eggGroups
+      - gender
+      - height
+      - species
+      - weight
+    BaseStats:
+      type: object
+      properties:
+        hp:
+          type: integer
+        attack:
+          type: integer
+        defense:
+          type: integer
+        specialAttack:
+          type: integer
+        specialDefense:
+          type: integer
+        speed:
+          type: integer
+        total:
+          type: integer
+      required:
+      - attack
+      - defense
+      - hp
+      - specialAttack
+      - specialDefense
+      - speed
+      - total
+    Evolution:
+      type: object
+      properties:
+        evolutions_chain:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvolutionChain'
+        all_from_base:
+          $ref: '#/components/schemas/EvolutionAllFromBase'
+      required:
+      - all_from_base
+      - evolutions_chain
+    EvolutionAllFromBase:
+      type: object
+      properties:
+        all_from_base:
+          type: string
+      required:
+      - all_from_base
+    EvolutionChain:
+      type: object
+      properties:
+        name:
+          type: string
+        evolutionMethod:
+          type: string
+        level:
+          type: integer
+          nullable: true
+        imageUrl:
+          type: string
+          format: uri
+        methodImageUrl:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - evolutionMethod
+      - imageUrl
+      - level
+      - methodImageUrl
+      - name
+    Gender:
+      type: object
+      properties:
+        male:
+          type: number
+          format: double
+          nullable: true
+        female:
+          type: number
+          format: double
+          nullable: true
+      required:
+      - female
+      - male
     Pokemon:
       type: object
       properties:
@@ -77,6 +220,37 @@ components:
       - name
       - number
       - svg
+      - types
+    PokemonInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+        number:
+          type: integer
+        image:
+          type: string
+          format: uri
+        name:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+        about:
+          $ref: '#/components/schemas/About'
+        evolutions:
+          $ref: '#/components/schemas/Evolution'
+        baseStats:
+          $ref: '#/components/schemas/BaseStats'
+      required:
+      - about
+      - baseStats
+      - evolutions
+      - id
+      - image
+      - name
+      - number
       - types
   securitySchemes:
     basicAuth:
