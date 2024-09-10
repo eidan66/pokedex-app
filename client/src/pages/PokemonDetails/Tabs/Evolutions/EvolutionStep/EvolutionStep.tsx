@@ -5,19 +5,15 @@ import FriendIcon from '../../../../../../assets/images/friend-icon.png';
 import TradeIcon from '../../../../../../assets/images/trade-icon.png';
 import { RightArrow } from '../../../../../components/RightArrow';
 import { COLORS } from '../../../../../constants/colors';
-import { EvolutionMethod as EvolutionMethodType } from '../../../../../types/PokemonDetails';
+import { EvolutionsChain } from '../../../../../types/PokemonDetails';
 import { Evolution } from '../Evolution';
 
-interface EvolutionStepProps {
-  uri: string;
-  methodImageUrl?: string;
-  evolutionMethod: EvolutionMethodType;
-  level?: number;
+interface EvolutionStepProps extends Partial<EvolutionsChain> {
   nextEvolutionUri?: string;
 }
 
 export const EvolutionStep: FunctionComponent<EvolutionStepProps> = ({
-  uri,
+  imageUrl,
   level,
   evolutionMethod,
   methodImageUrl,
@@ -32,13 +28,13 @@ export const EvolutionStep: FunctionComponent<EvolutionStepProps> = ({
       case 'High Friendship':
         return <Image style={styleWithTint} source={FriendIcon} />;
       default:
-        return <Image style={styles.methodImage} source={{ uri: methodImageUrl }} />;
+        return methodImageUrl && <Image style={styles.methodImage} source={{ uri: methodImageUrl }} />;
     }
   };
 
   return (
     <View style={styles.evolutionStep} testID="evolution-step">
-      <Evolution uri={uri} />
+      {imageUrl && <Evolution uri={imageUrl} />}
 
       {level && (
         <View style={styles.arrowContainer}>

@@ -30,7 +30,7 @@ export const Evolutions: FunctionComponent<EvolutionsProps> = ({ evolutionsRes }
       return (
         <View style={styles.singleRow}>
           <EvolutionStep
-            uri={evolutions[0].imageUrl}
+            imageUrl={evolutions[0].imageUrl}
             level={evolutions[1].level}
             nextEvolutionUri={evolutions[1]?.imageUrl}
             evolutionMethod={evolutions[1]?.evolutionMethod}
@@ -46,7 +46,7 @@ export const Evolutions: FunctionComponent<EvolutionsProps> = ({ evolutionsRes }
         <View style={styles.row}>
           {evolutions[index + 1] && (
             <EvolutionStep
-              uri={all_from_base ? evolutions[0]?.imageUrl : evolution.imageUrl}
+              imageUrl={all_from_base ? evolutions[0]?.imageUrl : evolution.imageUrl}
               level={all_from_base ? evolutions[0]?.level : evolutions[index + 1]?.level}
               nextEvolutionUri={evolutions[index + 1]?.imageUrl}
               evolutionMethod={evolutions[index + 1]?.evolutionMethod}

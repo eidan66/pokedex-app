@@ -67,6 +67,9 @@ describe('Pokedex', () => {
 
     fireEvent(getByText(upperCaseName), 'pressIn');
 
-    expect(navigationMockProps.navigation.navigate).toHaveBeenCalledWith('PokemonDetails', { pokemonId: 1 });
+    expect(navigationMockProps.navigation.navigate).toHaveBeenCalledWith('PokemonDetails', {
+      pokemonId: 1,
+      backgroundColor: '#7AC74C',
+    });
   });
 });

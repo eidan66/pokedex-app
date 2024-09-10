@@ -52,6 +52,7 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
       }
 
       setIsLoading(true);
+
       const response = await fetch(`${getBaseUrl()}/pokemon/info/${pokemonId}`);
       const jsonData = await response.json();
 
@@ -132,9 +133,9 @@ export const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({ route: 
           <TouchableOpacity onPressIn={handleFavorite} delayPressIn={800}>
             <Animated.View style={{ transform: [{ scale: scaleValue }] }} testID="heart-icon">
               {isFavorite ? (
-                <Icon name="heart" size={24} color={COLORS.white} />
+                <Icon name="heart" size={24} color={COLORS.white} testID="heart-icon-inline" />
               ) : (
-                <Icon name="heart-outlined" size={24} color={COLORS.white} />
+                <Icon name="heart-outlined" size={24} color={COLORS.white} testID="heart-icon-outline" />
               )}
             </Animated.View>
           </TouchableOpacity>

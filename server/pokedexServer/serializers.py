@@ -66,7 +66,7 @@ class EvolutionAllFromBaseSerializer(serializers.Serializer):
 
 class EvolutionSerializer(serializers.Serializer):
     evolutions_chain = EvolutionChainSerializer(many=True)
-    all_from_base = EvolutionAllFromBaseSerializer()
+all_from_base = EvolutionAllFromBaseSerializer()
 
 class PokemonInfoSerializer(serializers.Serializer):
     id = serializers.IntegerField()

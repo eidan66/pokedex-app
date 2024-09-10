@@ -36,8 +36,8 @@ export type EvolutionMethod = 'Trade' | 'High Friendship' | string;
 
 export interface EvolutionsChain {
   name: string;
-  level?: number;
-  methodImageUrl?: string;
+  level?: number | null;
+  methodImageUrl?: string | null;
   evolutionMethod: EvolutionMethod;
   imageUrl: string;
 }
@@ -68,7 +68,7 @@ export interface Move {
 // Main Pokémon Data Interface
 export interface PokemonData {
   id: number;
-  number: number;
+  number: string;
   name: string;
   image: string;
   types: string[];

@@ -18,6 +18,8 @@ const config: Config = {
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
   coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/__tests__/jest.setup.js'],
+  automock: false,
+  resetMocks: false,
 };
 
 export default config;
