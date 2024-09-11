@@ -25,7 +25,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pokemon'
+                $ref: '#/components/schemas/PokemonDetail'
           description: ''
   /api/pokemon/info/{id}/:
     get:
@@ -65,7 +65,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pokemon'
+                $ref: '#/components/schemas/PokemonList'
           description: ''
 components:
   schemas:
@@ -140,18 +140,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EvolutionChain'
-        all_from_base:
-          $ref: '#/components/schemas/EvolutionAllFromBase'
       required:
-      - all_from_base
       - evolutions_chain
-    EvolutionAllFromBase:
-      type: object
-      properties:
-        all_from_base:
-          type: string
-      required:
-      - all_from_base
     EvolutionChain:
       type: object
       properties:
@@ -189,7 +179,7 @@ components:
       required:
       - female
       - male
-    Pokemon:
+    PokemonDetail:
       type: object
       properties:
         id:
@@ -197,29 +187,26 @@ components:
         name:
           type: string
           maxLength: 100
-        number:
+        padded_id:
           type: string
-          maxLength: 50
+          maxLength: 10
         types:
           type: array
           items:
             type: string
             maxLength: 50
-        boxBg:
+        color:
           type: string
-          maxLength: 100
-        svg:
+          maxLength: 50
+        sprite_url:
           type: string
           format: uri
-        error:
-          type: string
-          maxLength: 200
       required:
-      - boxBg
+      - color
       - id
       - name
-      - number
-      - svg
+      - padded_id
+      - sprite_url
       - types
     PokemonInfo:
       type: object
@@ -251,6 +238,38 @@ components:
       - image
       - name
       - number
+      - types
+    PokemonList:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          maxLength: 100
+        number:
+          type: string
+          maxLength: 50
+        types:
+          type: array
+          items:
+            type: string
+            maxLength: 50
+        boxBg:
+          type: string
+          maxLength: 100
+        svg:
+          type: string
+          format: uri
+        error:
+          type: string
+          maxLength: 200
+      required:
+      - boxBg
+      - id
+      - name
+      - number
+      - svg
       - types
   securitySchemes:
     basicAuth:

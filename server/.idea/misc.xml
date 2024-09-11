@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Pipenv (server)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Pipenv (server)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.12.3 Docker (pokedex-server:latest)" project-jdk-type="Python SDK" />
 </project>
