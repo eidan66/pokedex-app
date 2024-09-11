@@ -10,7 +10,7 @@ class PokemonModel:
 
     @property
     def padded_id(self):
-        return f"#{self.id:03d}"  # Ensure it's a 3-digit padded ID
+        return f"#{self.id:03d}"
 
     @property
     def sprite_url(self):
@@ -18,4 +18,4 @@ class PokemonModel:
 
     @property
     def color(self):
-        return self.boxBg  # Assuming `boxBg` represents the color
+        return self.boxBg
