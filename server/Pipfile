@@ -9,8 +9,10 @@ pokebase = "*"
 drf_spectacular = "*"
 python-decouple = "*"
 gunicorn = "*"
+djangorestframework = "*"
 
 [dev-packages]
+django = "*"
 
 [requires]
 python_version = "3.12"
