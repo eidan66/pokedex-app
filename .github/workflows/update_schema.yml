@@ -1,14 +1,11 @@
 name: Update OpenAPI Schema
 
 on:
-  push:
-    paths:
-      - 'server/**'
   pull_request:
     paths:
       - 'server/**'
-    branches-ignore:
-      - main
+    branches:
+      - main  
 
 permissions:
   contents: write
