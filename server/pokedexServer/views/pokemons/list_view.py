@@ -4,6 +4,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.cache import cache
 
 from pokedexServer.models.pokemon.Colors import Colors
 from pokedexServer.models.pokemon.PokemonModel import PokemonModel
@@ -23,6 +24,13 @@ class PokemonListView(GenericAPIView):
         if limit > 20:
             limit = 20
 
+        cache_key = f'pokemon_list_{offset}_{limit}'
+        cached_results = cache.get(cache_key)
+
+        if cached_results:
+            # If results are cached, return the cached data
+            return Response(cached_results, status=status.HTTP_200_OK)
+
         pokeAPIPokemons = pb.APIResourceList('pokemon')
         count = pokeAPIPokemons.count
         full_url = request.build_absolute_uri()[:-1]
@@ -31,12 +39,15 @@ class PokemonListView(GenericAPIView):
         pokeAPIPokemonsNamesPage = paginate(list(pokeAPIPokemons.names), offset, limit)
         results = list(map(lambda name: self.fetchAndMapPokemon(name).__dict__, pokeAPIPokemonsNamesPage))
 
-        return Response({
+        data = {
             "count": count,
             "next": next,
             "previous": previous,
             "results": results
-        }, status=status.HTTP_200_OK)
+        }
+
+        cache.set(cache_key, data, timeout=86400)
+        return Response(data, status=status.HTTP_200_OK)
 
     def fetchAndMapPokemon(self, name):
         pokeAPIPokemon = pb.pokemon(name)

@@ -4,9 +4,12 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from django.core.cache import cache
 
 from pokedexServer.serializers.pokemon_info_serializers import PokemonInfoSerializer
-from pokedexServer.utils import  pad
+from pokedexServer.utils import pad
+
+
 class PokemonInfoView(APIView):
     serializer_class = PokemonInfoSerializer
 
@@ -17,6 +20,12 @@ class PokemonInfoView(APIView):
 
     )
     def get(self, request, id):
+        cache_key = f'pokemon_info_{id}'
+        cached_pokemon_info = cache.get(cache_key)
+
+        if cached_pokemon_info:
+            return Response(cached_pokemon_info, status=status.HTTP_200_OK)
+
         try:
             # Fetching Pokémon data using pokebase
             pokemon = pb.pokemon(id)
@@ -86,6 +95,7 @@ class PokemonInfoView(APIView):
                 "moves": moves
             }
 
+            cache.set(cache_key, data, timeout=86400)
             return Response(data, status=status.HTTP_200_OK)
 
         except Exception as e:
