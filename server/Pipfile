@@ -10,6 +10,8 @@ drf_spectacular = "*"
 python-decouple = "*"
 gunicorn = "*"
 djangorestframework = "*"
+redis = "*"
+django-redis = "*"
 
 [dev-packages]
 django = "*"

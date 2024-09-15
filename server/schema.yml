@@ -67,6 +67,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/PokemonList'
           description: ''
+  /api/pokemons/search:
+    get:
+      operationId: pokemon_search
+      summary: Search Pokémon by name
+      tags:
+      - pokemons
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
 components:
   schemas:
     Ability:

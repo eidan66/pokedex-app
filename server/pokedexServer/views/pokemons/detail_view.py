@@ -4,7 +4,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-
+from django.core.cache import cache
 import logging
 
 logger = logging.getLogger(__name__)
@@ -21,10 +21,17 @@ class PokemonDetailView(APIView):
 
     @extend_schema(operation_id="pokemon_detail", summary="Retrieve a Pokémon by ID")
     def get(self, request, id):
+        cache_key = f'pokemon_detail_{id}'
+        cached_pokemon = cache.get(cache_key)
+
+        if cached_pokemon:
+            return Response(cached_pokemon, status=status.HTTP_200_OK)
         pokemonModel = self.fetchAndMapPokemon(id)
         if pokemonModel.error:  # Now correctly checking for an error
             return Response({"error": pokemonModel.error}, status=status.HTTP_404_NOT_FOUND)
         serializer = self.serializer_class(pokemonModel)
+        cache.set(cache_key, serializer.data, timeout=86400)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def fetchAndMapPokemon(self, id):

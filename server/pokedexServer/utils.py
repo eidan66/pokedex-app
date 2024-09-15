@@ -19,4 +19,3 @@ def pad (num):
     return f"#0{num}"
 
   return f"#00{num}"
-
